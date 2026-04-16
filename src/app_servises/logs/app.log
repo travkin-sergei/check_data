@@ -1,0 +1,19 @@
+2026-04-14 17:44:05 | INFO     |   17 | main.py | - | lifespan | [MAIN] 🚀 Запуск app_servises...[0m
+2026-04-14 17:44:05 | WARNING  |   26 | main.py | - | lifespan | [DB] Пропуск инициализации пула 'app_servises_db' (проверьте DSN в .env): Неизвестный алиас БД: app_servises_db[0m
+2026-04-14 17:45:02 | INFO     |   17 | main.py | - | lifespan | [MAIN] 🚀 Запуск app_servises...[0m
+2026-04-14 17:45:02 | WARNING  |   26 | main.py | - | lifespan | [DB] Пропуск инициализации пула 'app_servises_db' (проверьте DSN в .env): Неизвестный алиас БД: app_servises_db[0m
+2026-04-14 17:55:54 | INFO     |   34 | main.py | - | lifespan | [MAIN] 🛑 app_servises остановлен[0m
+2026-04-14 17:55:57 | INFO     |   17 | main.py | - | lifespan | [MAIN] 🚀 Запуск app_servises...[0m
+2026-04-14 17:55:57 | WARNING  |   26 | main.py | - | lifespan | [DB] Пропуск инициализации пула 'app_servises_db' (проверьте DSN в .env): Неизвестный алиас БД: app_servises_db[0m
+2026-04-14 17:56:01 | INFO     |   17 | main.py | - | lifespan | [MAIN] 🚀 Запуск app_servises...[0m
+2026-04-14 17:56:01 | WARNING  |   26 | main.py | - | lifespan | [DB] Пропуск инициализации пула 'app_servises_db' (проверьте DSN в .env): Неизвестный алиас БД: app_servises_db[0m
+2026-04-14 17:56:35 | INFO     |   17 | main.py | - | lifespan | [MAIN] 🚀 Запуск app_servises...[0m
+2026-04-14 17:56:35 | INFO     |   29 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'app_servises_db' загружен[0m
+2026-04-14 17:56:35 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'app_servises_db' создан (asyncpg)[0m
+2026-04-14 17:56:35 | INFO     |   24 | main.py | - | lifespan | [DB] Пул 'app_servises_db' успешно инициализирован[0m
+2026-04-14 17:56:40 | INFO     |   17 | main.py | - | lifespan | [MAIN] 🚀 Запуск app_servises...[0m
+2026-04-14 17:56:40 | INFO     |   29 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'app_servises_db' загружен[0m
+2026-04-14 17:56:40 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'app_servises_db' создан (asyncpg)[0m
+2026-04-14 17:56:40 | INFO     |   24 | main.py | - | lifespan | [DB] Пул 'app_servises_db' успешно инициализирован[0m
+2026-04-14 18:06:39 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'app_servises_db' закрыт[0m
+2026-04-14 18:06:39 | INFO     |   34 | main.py | - | lifespan | [MAIN] 🛑 app_servises остановлен[0m

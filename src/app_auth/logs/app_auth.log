@@ -1,3 +1,0 @@
-2026-04-13 10:52:35 | INFO     |   29 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
-2026-04-13 10:52:35 | INFO     |   36 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
-2026-04-13 10:53:13 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m

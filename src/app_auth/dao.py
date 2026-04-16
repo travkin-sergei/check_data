@@ -10,6 +10,7 @@ from src.app_database.base import Base
 
 T = TypeVar("T", bound=Base)
 
+
 class BaseDAO(Generic[T]):
     model: Type[T] = None
 
@@ -57,7 +58,8 @@ class BaseDAO(Generic[T]):
         try:
             f = filters.model_dump(exclude_unset=True)
             v = values.model_dump(exclude_unset=True)
-            q = sqlalchemy_update(self.model).where(*[getattr(self.model, k) == val for k, val in f.items()]).values(**v)
+            q = sqlalchemy_update(self.model).where(*[getattr(self.model, k) == val for k, val in f.items()]).values(
+                **v)
             res = await self._session.execute(q)
             await self._session.flush()
             return res.rowcount
@@ -78,15 +80,36 @@ class BaseDAO(Generic[T]):
             logger.error(f"[DAO] Ошибка удаления: {e}")
             raise
 
+
 class UsersDAO(BaseDAO):
-    model = None # Будет переопределено при импорте, или установим здесь:
+    model = None  # Будет переопределено при импорте, или установим здесь:
+
     def __init__(self, session: AsyncSession):
         from src.app_auth.models import User
         self.model = User
         super().__init__(session)
+
 
 class RoleDAO(BaseDAO):
     def __init__(self, session: AsyncSession):
         from src.app_auth.models import Role
         self.model = Role
         super().__init__(session)
+
+
+class AppCredentialDAO(BaseDAO):
+    def __init__(self, session: AsyncSession):
+        from src.app_auth.models import AppCredential
+        self.model = AppCredential
+        super().__init__(session)
+
+    async def find_by_app_name(self, app_name: str):
+        """Поиск учётных данных по имени приложения."""
+        try:
+            res = await self._session.execute(
+                select(self.model).filter_by(app_name=app_name)
+            )
+            return res.scalar_one_or_none()
+        except SQLAlchemyError as e:
+            logger.error(f"[DAO] Ошибка поиска AppCredential: {e}")
+            raise

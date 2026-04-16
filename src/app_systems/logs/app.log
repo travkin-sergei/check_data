@@ -1,0 +1,37 @@
+2026-04-13 17:21:32 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-13 17:25:45 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-13 17:25:57 | WARNING  |   22 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-13 17:26:28 | WARNING  |   22 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-13 17:35:16 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-13 17:39:59 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-14 10:05:34 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-14 15:02:19 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-14 17:02:39 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-14 17:02:54 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-14 17:31:27 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-14 17:40:20 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-14 17:43:30 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-14 17:43:32 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-14 17:43:34 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-14 17:43:35 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-14 17:43:35 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-14 17:56:00 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-14 17:56:38 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-14 18:19:19 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-14 18:24:07 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-14 18:31:10 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-14 18:35:04 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-14 18:35:52 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-15 08:41:58 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-15 08:59:21 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-15 09:00:05 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-15 09:03:33 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-15 09:05:06 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-15 09:09:54 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-15 09:10:03 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-15 09:10:26 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-15 09:15:01 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-15 09:15:06 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-15 09:15:06 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m
+2026-04-15 09:15:22 | DEBUG    |   64 | selector_events.py | _WindowsSelectorEventLoop | __init__ | Using selector: SelectSelector[0m
+2026-04-15 09:15:29 | WARNING  |   24 | dependencies.py | - | require_app_auth | [SYSTEMS] Отказано: отсутствует заголовок Authorization[0m

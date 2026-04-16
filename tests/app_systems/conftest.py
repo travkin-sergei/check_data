@@ -1,25 +1,9 @@
 # tests/app_systems/conftest.py
-import os
-
 import pytest
-from unittest.mock import patch, AsyncMock, MagicMock
+from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
+
 from src.app_systems.main import app
-from src.app_systems.api import verify_token
-
-
-@pytest.fixture
-def client():
-    """TestClient с автоматической авторизацией для app_systems."""
-    with TestClient(app) as c:
-        yield c
-
-
-@pytest.fixture
-def mock_check_file_exists():
-    """Мок для AppDataChecker.check_file_exists с поддержкой суффиксов."""
-    with patch("src.app_systems.api.AppDataChecker.check_file_exists", new_callable=AsyncMock) as mock:
-        yield mock
 
 
 @pytest.fixture(scope="module", autouse=True)
@@ -41,20 +25,14 @@ def isolate_dependencies(tmp_path_factory):
 
 
 @pytest.fixture
-def client():
-    """TestClient с отключённой проверкой токена для тестов."""
-
-    # ✅ Переопределяем проверку токена — всегда возвращаем True
-    def override_verify_token():
-        return True
-
-    app.dependency_overrides[verify_token] = override_verify_token
-
-    with TestClient(app) as c:
-        yield c
-
-    # ✅ Очищаем переопределения после теста, чтобы не ломать другие тесты
-    app.dependency_overrides.clear()
+def api_client():
+    """
+    HTTP-клиент с корректным управлением жизненным циклом FastAPI.
+    raise_server_exceptions=True (по умолчанию) рекомендуется для тестов,
+    чтобы сразу видеть стектрейсы при 500.
+    """
+    with TestClient(app, raise_server_exceptions=True) as client:
+        yield client
 
 
 @pytest.fixture(autouse=True)

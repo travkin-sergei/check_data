@@ -1,24 +1,24 @@
 # src/app_systems/api.py
 """
 API приложения app_systems.
-Централизованная авторизация через app_auth.
-Строгое переиспользование: logger, database, services, app_auth.dependencies
-Изоляция: импорты только из src.config.*, src.app_systems.*, src.app_auth.dependencies
+Простая изолированная авторизация по токену из .env
+Строгое переиспользование: logger, database, services
+Изоляция: импорты только из src.config.* и src.app_systems.*
 """
 import mimetypes
+
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional
 
 from fastapi import APIRouter, Query, HTTPException, status, UploadFile, File, Form, Depends
 from fastapi.responses import FileResponse, JSONResponse
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from starlette.background import BackgroundTask
 
-# ← ЕДИНАЯ точка входа для авторизации (из app_auth)
-from src.app_auth.dependencies import require_app_access
-
-from app_database.database import DBManager
+from src.config.database import DBManager
 from src.config.logger import logger
 from src.app_systems.config import TAG_NAME, DATA_ROOT_DIR
+from src.app_systems.dependencies import require_app_auth
 from src.app_systems.services import AppDataChecker
 from src.app_systems.schemas import (
     CheckDataResponse, CheckDataRequest,
@@ -28,30 +28,31 @@ from src.app_systems.schemas import (
 
 router = APIRouter(tags=[TAG_NAME])
 
+# === Простая локальная авторизация ===
+security = HTTPBearer(auto_error=False)
 
-# === УДАЛЕНО: локальная проверка токена ===
-# Все эндпоинты теперь используют require_app_access из app_auth
+@router.post("/service/verify-token/")
+async def verify_app_token(
+    app_token: str = Depends(require_app_token)  # require_app_token уже проверяет всё
+):
+    """Проверяет токен приложения и возвращает его метаданные."""
+    # Если мы здесь, токен валиден
+    return {"valid": True, "message": "Токен действителен"}
 
 
 @router.get(
     "/available-folders",
     response_model=FoldersResponse,
     summary="Получение содержимого директории (подпапки и файлы)",
-    # ← Централизованная авторизация + автоматический аудит
-    dependencies=[Depends(require_app_access)],
+    dependencies=[Depends(require_app_auth)],
 )
 async def get_available_folders(
-        # ← Контекст приложения (доступен благодаря зависимости)
-        app_context: dict = Depends(require_app_access),
         folder_path: Optional[str] = Query(None, description="Адрес директории относительно DATA_ROOT_DIR"),
         pattern: Optional[str] = Query(None, description="Regex для фильтрации (например, дат)"),
         page: int = Query(1, ge=1, description="Номер страницы"),
         page_size: int = Query(50, ge=1, le=1000, description="Записей на странице")
 ) -> FoldersResponse:
-    # ← Логирование с идентификатором приложения
-    logger.info(f"[SYSTEMS] Запрос от приложения: {app_context['identifier']} "
-                f"(id={app_context['app_id']}) | path={folder_path or 'root'}")
-
+    logger.info(f"Запрос содержимого: path={folder_path or 'root'}, pattern={pattern}")
     success, result = await AppDataChecker.get_available_folders(
         root_dir=DATA_ROOT_DIR,
         folder_path=folder_path,
@@ -68,17 +69,14 @@ async def get_available_folders(
 
 
 @router.post(
-    "/check-app_database",
+    "/check-data",
     response_model=CheckDataResponse,
-    dependencies=[Depends(require_app_access)],
+    dependencies=[Depends(require_app_auth)],
 )
-async def check_data(
-        app_context: dict = Depends(require_app_access),
-        request: Optional[CheckDataRequest] = None
-):
-    logger.info(f"[SYSTEMS] Проверка данных от приложения: {app_context['identifier']}")
-
+async def check_data(request: Optional[CheckDataRequest] = None):
+    logger.info("Запрос на проверку данных")
     folders = request.folders if request else None
+
     success, result = await AppDataChecker.check_comtrade_data(
         base_url=DATA_ROOT_DIR,
         folders=folders
@@ -86,9 +84,12 @@ async def check_data(
 
     missing = result.get('missing', [])
     empty = result.get('empty', [])
-    found_base = result.get('found', [])
+    found_base = result.get('found', [])  # ← Список строк: ["folder1", "folder2"]
 
+    # Сканирование дат только для найденных папок
     dates_map = await AppDataChecker.get_max_dates_for_folders(found_base, DATA_ROOT_DIR)
+
+    # Форматирование в [{"папка": "дата"}, ...]
     found_formatted = [{f: dates_map.get(f)} for f in found_base]
 
     parts = []
@@ -102,7 +103,7 @@ async def check_data(
         message=message,
         missing=missing,
         empty=empty,
-        found=found_formatted,
+        found=found_formatted,  # ← Теперь List[Dict], соответствует схеме
         total_checked=len(folders or [])
     )
 
@@ -111,14 +112,10 @@ async def check_data(
     "/extract-schema",
     response_model=ExtractSchemaResponse,
     summary="Получить схему данных файла",
-    dependencies=[Depends(require_app_access)],
+    dependencies=[Depends(require_app_auth)],
 )
-async def extract_schema(
-        app_context: dict = Depends(require_app_access),
-        request: ExtractSchemaRequest = None
-):
-    logger.info(f"[SYSTEMS] Извлечение схемы от {app_context['identifier']}: file={request.file_path}")
-
+async def extract_schema(request: ExtractSchemaRequest):
+    logger.info(f"Запрос извлечения схемы: file={request.file_path}")
     success, result = await AppDataChecker.extract_file_schema(file_path=request.file_path)
     if not success:
         return ExtractSchemaResponse(
@@ -146,23 +143,20 @@ async def extract_schema(
 @router.get(
     "/download-file",
     summary="Скачать файл по пути",
-    dependencies=[Depends(require_app_access)],
+    dependencies=[Depends(require_app_auth)],
 )
 async def download_file(
-        app_context: dict = Depends(require_app_access),
         file_path: str = Query(..., description="Путь к файлу относительно DATA_ROOT_DIR"),
         as_attachment: bool = Query(True, description="Скачивать как вложение")
 ):
-    logger.info(f"[SYSTEMS] Скачивание файла: {file_path} | приложение: {app_context['identifier']}")
-
+    logger.info(f"Запрос на скачивание: path={file_path}, attachment={as_attachment}")
     try:
         base = Path(DATA_ROOT_DIR).resolve()
         full_path = (base / file_path).resolve()
-
         try:
             full_path.relative_to(base)
         except ValueError:
-            logger.warning(f"Попытка доступа вне базы: {file_path} | app_id={app_context['app_id']}")
+            logger.warning(f"Попытка доступа вне базы: {file_path}")
             return JSONResponse(
                 status_code=status.HTTP_403_FORBIDDEN,
                 content={"error": f"Доступ запрещён: путь выходит за пределы {DATA_ROOT_DIR}"}
@@ -185,12 +179,11 @@ async def download_file(
                 db_conn = DBManager.get_connection("base_01")
                 if db_conn and db_conn.is_initialized:
                     with db_conn.get_cursor(commit=True) as cur:
-                        # ← Аудит скачивания с привязкой к приложению
                         cur.execute(
                             """INSERT INTO file_download_log 
-                            (app_id, file_path, downloaded_at, client_info)
-                            VALUES (%s, %s, NOW(), %s)""",
-                            (app_context['app_id'], file_path, app_context['identifier'])
+                            (file_path, downloaded_at, client_info)
+                            VALUES (%s, NOW(), %s)""",
+                            (file_path, "api_request")
                         )
             except Exception as e:
                 logger.warning(f"Не удалось залогировать скачивание: {e}")
@@ -219,19 +212,14 @@ async def download_file(
     "/upload-file",
     summary="Загрузка файла в хранилище",
     status_code=status.HTTP_200_OK,
-    dependencies=[Depends(require_app_access)],
+    dependencies=[Depends(require_app_auth)],
 )
-async def upload_file(
-        app_context: dict = Depends(require_app_access),
-        file: UploadFile = File(...),
-        file_path: str = Form(..., description="Целевая директория"),
-        overwrite: bool = Form(False)
-):
-    logger.info(f"[SYSTEMS] Загрузка файла от {app_context['identifier']}: dir={file_path}")
-
+async def upload_file(file: UploadFile = File(...),
+                      file_path: str = Form(..., description="Целевая директория"),
+                      overwrite: bool = Form(False)):
+    logger.info(f"Запрос загрузки: dir={file_path}, original_name={file.filename}")
     safe_name = (file.filename or "uploaded_file").replace("/", "_").replace("\\", "_")
     full_path = f"{file_path.rstrip('/')}/{safe_name}"
-
     try:
         content = await file.read()
         success, result = await AppDataChecker.upload_file_to_storage(
@@ -264,37 +252,18 @@ async def upload_file(
     "/check-file-exists",
     response_model=FileExistsResponse,
     summary="Проверка существования файла",
-    description=(
-            "Проверяет наличие файла по заданному пути. "
-            "Если файл не найден и переданы суффиксы, проверяет варианты: "
-            "file.ext → file.ext.suffix1 → file.ext.suffix2"
-    ),
-    dependencies=[Depends(require_app_access)],
+    description="Проверяет наличие файла по заданному пути",
+    dependencies=[Depends(require_app_auth)],
 )
 async def check_file_exists(
-        app_context: dict = Depends(require_app_access),
-        file_path: str = Query(..., description="Путь к файлу относительно DATA_ROOT_DIR"),
-        suffixes: Optional[List[str]] = Query(
-            None, alias="suffix",
-            description="Список возможных суффиксов. Передавать как ?suffix=a&suffix=b"
-        )
+        file_path: str = Query(..., description="Путь к файлу относительно DATA_ROOT_DIR")
 ):
-    logger.info(f"[SYSTEMS] Проверка файла от {app_context['identifier']}: path={file_path}, suffixes={suffixes}")
-
-    try:
-        # ← Обновите сервис, чтобы он принимал suffixes (см. ниже)
-        success, result = await AppDataChecker.check_file_exists(file_path, suffixes=suffixes)
-        return FileExistsResponse(
-            success=success,
-            exists=result.get("exists", False),
-            file_path=result.get("file_path", file_path),
-            found_suffix=result.get("found_suffix"),
-            file_size=result.get("file_size"),
-            error=result.get("error")
-        )
-    except Exception as e:
-        logger.error(f"Ошибка в check_file_exists: {type(e).__name__}: {e}", exc_info=True)
-        return FileExistsResponse(
-            success=False, exists=False, file_path=file_path,
-            found_suffix=None, file_size=None, error=str(e)
-        )
+    logger.info(f"Запрос проверки файла: path={file_path}")
+    success, result = await AppDataChecker.check_file_exists(file_path)
+    return FileExistsResponse(
+        success=success,
+        exists=result.get("exists", False),
+        file_path=result.get("file_path", file_path),
+        file_size=result.get("file_size"),
+        error=result.get("error")
+    )

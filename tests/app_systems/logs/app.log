@@ -1,0 +1,488 @@
+2026-04-08 12:09:22 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=None[0m
+2026-04-08 12:09:22 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 200 OK"[0m
+2026-04-08 12:09:22 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=comtrade/raw, pattern=^\d{4}-\d{2}-\d{2}$[0m
+2026-04-08 12:09:22 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=comtrade%2Fraw&pattern=%5E%5Cd%7B4%7D-%5Cd%7B2%7D-%5Cd%7B2%7D%24 "HTTP/1.1 200 OK"[0m
+2026-04-08 12:09:22 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=invalid/path, pattern=None[0m
+2026-04-08 12:09:22 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=invalid/path "HTTP/1.1 400 Bad Request"[0m
+2026-04-08 12:09:22 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=[invalid[0m
+2026-04-08 12:09:22 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?pattern=[invalid "HTTP/1.1 400 Bad Request"[0m
+2026-04-08 12:09:22 | INFO     |   67 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-08 12:09:22 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-08 12:09:22 | INFO     |   67 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-08 12:09:22 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-08 12:09:22 | INFO     |  103 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/export.parquet[0m
+2026-04-08 12:09:22 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-08 12:09:22 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 422 Un****************ty"[0m
+2026-04-08 12:09:22 | INFO     |  103 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/missing.parquet[0m
+2026-04-08 12:09:22 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-08 12:09:22 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/upload-file "HTTP/1.1 422 Un****************ty"[0m
+2026-04-08 12:12:26 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=None[0m
+2026-04-08 12:12:26 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 200 OK"[0m
+2026-04-08 12:12:26 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=comtrade/raw, pattern=^\d{4}-\d{2}-\d{2}$[0m
+2026-04-08 12:12:26 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=comtrade%2Fraw&pattern=%5E%5Cd%7B4%7D-%5Cd%7B2%7D-%5Cd%7B2%7D%24 "HTTP/1.1 200 OK"[0m
+2026-04-08 12:12:26 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=invalid/path, pattern=None[0m
+2026-04-08 12:12:26 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=invalid/path "HTTP/1.1 400 Bad Request"[0m
+2026-04-08 12:12:26 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=[invalid[0m
+2026-04-08 12:12:26 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?pattern=[invalid "HTTP/1.1 400 Bad Request"[0m
+2026-04-08 12:12:26 | INFO     |   67 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-08 12:12:26 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-08 12:12:26 | INFO     |   67 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-08 12:12:26 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-08 12:12:26 | INFO     |  103 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/export.parquet[0m
+2026-04-08 12:12:26 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-08 12:12:26 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 422 Un****************ty"[0m
+2026-04-08 12:12:26 | INFO     |  103 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/missing.parquet[0m
+2026-04-08 12:12:26 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-08 12:12:26 | INFO     |  147 | api.py | - | upload_file | Запрос загрузки файла: test.parquet[0m
+2026-04-08 12:12:26 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/upload-file "HTTP/1.1 500 In*****************or"[0m
+2026-04-08 12:16:49 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=None[0m
+2026-04-08 12:16:49 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 200 OK"[0m
+2026-04-08 12:16:49 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=comtrade/raw, pattern=^\d{4}-\d{2}-\d{2}$[0m
+2026-04-08 12:16:49 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=comtrade%2Fraw&pattern=%5E%5Cd%7B4%7D-%5Cd%7B2%7D-%5Cd%7B2%7D%24 "HTTP/1.1 200 OK"[0m
+2026-04-08 12:16:49 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=invalid/path, pattern=None[0m
+2026-04-08 12:16:49 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=invalid/path "HTTP/1.1 400 Bad Request"[0m
+2026-04-08 12:16:49 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=[invalid[0m
+2026-04-08 12:16:49 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?pattern=[invalid "HTTP/1.1 400 Bad Request"[0m
+2026-04-08 12:16:49 | INFO     |   67 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-08 12:16:49 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-08 12:16:49 | INFO     |   67 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-08 12:16:49 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-08 12:16:49 | INFO     |  103 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/export.parquet[0m
+2026-04-08 12:16:49 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-08 12:16:49 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 422 Un****************ty"[0m
+2026-04-08 12:16:49 | INFO     |  103 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/missing.parquet[0m
+2026-04-08 12:16:49 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-08 12:16:49 | INFO     |  147 | api.py | - | upload_file | Запрос загрузки файла: test.parquet[0m
+2026-04-08 12:16:49 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/upload-file "HTTP/1.1 500 In*****************or"[0m
+2026-04-08 12:19:59 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=None[0m
+2026-04-08 12:19:59 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 200 OK"[0m
+2026-04-08 12:19:59 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=comtrade/raw, pattern=^\d{4}-\d{2}-\d{2}$[0m
+2026-04-08 12:19:59 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=comtrade%2Fraw&pattern=%5E%5Cd%7B4%7D-%5Cd%7B2%7D-%5Cd%7B2%7D%24 "HTTP/1.1 200 OK"[0m
+2026-04-08 12:19:59 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=invalid/path, pattern=None[0m
+2026-04-08 12:19:59 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=invalid/path "HTTP/1.1 400 Bad Request"[0m
+2026-04-08 12:19:59 | INFO     |   41 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=[invalid[0m
+2026-04-08 12:19:59 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?pattern=[invalid "HTTP/1.1 400 Bad Request"[0m
+2026-04-08 12:19:59 | INFO     |   67 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-08 12:19:59 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-08 12:19:59 | INFO     |   67 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-08 12:19:59 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-08 12:19:59 | INFO     |  103 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/export.parquet[0m
+2026-04-08 12:19:59 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-08 12:19:59 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 422 Un****************ty"[0m
+2026-04-08 12:19:59 | INFO     |  103 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/missing.parquet[0m
+2026-04-08 12:19:59 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-08 12:19:59 | INFO     |  150 | api.py | - | upload_file | Запрос загрузки файла: test.parquet, original_name=test.parquet[0m
+2026-04-08 12:19:59 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/upload-file "HTTP/1.1 500 In*****************or"[0m
+2026-04-08 14:44:28 | INFO     |   42 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=None[0m
+2026-04-08 14:44:28 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 200 OK"[0m
+2026-04-08 14:44:28 | INFO     |   42 | api.py | - | get_available_folders | Запрос содержимого: path=comtrade/raw, pattern=^\d{4}-\d{2}-\d{2}$[0m
+2026-04-08 14:44:28 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=comtrade%2Fraw&pattern=%5E%5Cd%7B4%7D-%5Cd%7B2%7D-%5Cd%7B2%7D%24 "HTTP/1.1 200 OK"[0m
+2026-04-08 14:44:28 | INFO     |   42 | api.py | - | get_available_folders | Запрос содержимого: path=invalid/path, pattern=None[0m
+2026-04-08 14:44:28 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=invalid/path "HTTP/1.1 400 Bad Request"[0m
+2026-04-08 14:44:28 | INFO     |   42 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=[invalid[0m
+2026-04-08 14:44:28 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?pattern=[invalid "HTTP/1.1 400 Bad Request"[0m
+2026-04-08 14:44:28 | INFO     |   68 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-08 14:44:28 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-08 14:44:28 | INFO     |   68 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-08 14:44:28 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-08 14:44:28 | INFO     |  104 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/export.parquet[0m
+2026-04-08 14:44:28 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-08 14:44:28 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 422 Un****************ty"[0m
+2026-04-08 14:44:28 | INFO     |  104 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/missing.parquet[0m
+2026-04-08 14:44:28 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-08 14:44:28 | INFO     |  222 | api.py | - | upload_file | Запрос загрузки: dir=test.parquet, original_name=test.parquet[0m
+2026-04-08 14:44:28 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/upload-file "HTTP/1.1 200 OK"[0m
+2026-04-09 15:36:51 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:36:51 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:36:51 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:36:51 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:36:51 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:36:51 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=comtrade%2Fraw&pattern=%5E%5Cd%7B4%7D-%5Cd%7B2%7D-%5Cd%7B2%7D%24 "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:36:51 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:36:51 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:36:51 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=invalid/path "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:36:51 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:36:51 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:36:51 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?pattern=[invalid "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:36:51 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:36:51 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:36:51 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:36:51 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:36:51 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:36:51 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:36:51 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:36:51 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:36:51 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:36:51 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:36:51 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:36:51 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:36:51 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:36:51 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:36:51 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:36:51 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[36:55][0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[57:84][0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[88:100][0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[138:157][0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[159:186][0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[190:195][0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[233:252][0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[254:280][0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[284:302][0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[340:359][0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[361:408][0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[410:422][0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[424:448][0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[452:464][0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:36:51 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_end with no data[0m
+2026-04-09 15:36:51 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:36:51 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/upload-file "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=None[0m
+2026-04-09 15:39:27 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 200 OK"[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=comtrade/raw, pattern=^\d{4}-\d{2}-\d{2}$[0m
+2026-04-09 15:39:27 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=comtrade%2Fraw&pattern=%5E%5Cd%7B4%7D-%5Cd%7B2%7D-%5Cd%7B2%7D%24 "HTTP/1.1 200 OK"[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=invalid/path, pattern=None[0m
+2026-04-09 15:39:27 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=invalid/path "HTTP/1.1 400 Bad Request"[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=[invalid[0m
+2026-04-09 15:39:27 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?pattern=[invalid "HTTP/1.1 400 Bad Request"[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | INFO     |   84 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | INFO     |   84 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-09 15:39:27 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | INFO     |  115 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/export.parquet[0m
+2026-04-09 15:39:27 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 422 Un****************ty"[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | INFO     |  115 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/missing.parquet[0m
+2026-04-09 15:39:27 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[36:55][0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[57:84][0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[88:100][0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[138:157][0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[159:186][0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[190:195][0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[233:252][0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[254:280][0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[284:302][0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[340:359][0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[361:408][0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[410:422][0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[424:448][0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[452:464][0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:39:27 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_end with no data[0m
+2026-04-09 15:39:27 | INFO     |  217 | api.py | - | upload_file | Запрос загрузки: dir=test.parquet, original_name=test.parquet[0m
+2026-04-09 15:39:27 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/upload-file "HTTP/1.1 200 OK"[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:39:27 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:39:27 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:39:27 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:39:27 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:41:03 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:03 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=None[0m
+2026-04-09 15:41:03 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 200 OK"[0m
+2026-04-09 15:41:03 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:03 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=comtrade/raw, pattern=^\d{4}-\d{2}-\d{2}$[0m
+2026-04-09 15:41:03 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=comtrade%2Fraw&pattern=%5E%5Cd%7B4%7D-%5Cd%7B2%7D-%5Cd%7B2%7D%24 "HTTP/1.1 200 OK"[0m
+2026-04-09 15:41:03 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:03 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=invalid/path, pattern=None[0m
+2026-04-09 15:41:03 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=invalid/path "HTTP/1.1 400 Bad Request"[0m
+2026-04-09 15:41:03 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:03 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=[invalid[0m
+2026-04-09 15:41:03 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?pattern=[invalid "HTTP/1.1 400 Bad Request"[0m
+2026-04-09 15:41:03 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:03 | INFO     |   84 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-09 15:41:04 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:04 | INFO     |   84 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-09 15:41:04 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-09 15:41:04 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:04 | INFO     |  115 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/export.parquet[0m
+2026-04-09 15:41:04 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-09 15:41:04 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:04 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 422 Un****************ty"[0m
+2026-04-09 15:41:04 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:04 | INFO     |  115 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/missing.parquet[0m
+2026-04-09 15:41:04 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-09 15:41:04 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[36:55][0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[57:84][0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[88:100][0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[138:157][0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[159:186][0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[190:195][0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[233:252][0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[254:280][0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[284:302][0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[340:359][0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[361:408][0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[410:422][0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[424:448][0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[452:464][0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:41:04 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_end with no data[0m
+2026-04-09 15:41:04 | INFO     |  217 | api.py | - | upload_file | Запрос загрузки: dir=test.parquet, original_name=test.parquet[0m
+2026-04-09 15:41:04 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/upload-file "HTTP/1.1 200 OK"[0m
+2026-04-09 15:41:04 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:04 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:41:04 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:41:04 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:41:04 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:41:04 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:42:33 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:33 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=None[0m
+2026-04-09 15:42:33 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 200 OK"[0m
+2026-04-09 15:42:33 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:33 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=comtrade/raw, pattern=^\d{4}-\d{2}-\d{2}$[0m
+2026-04-09 15:42:33 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=comtrade%2Fraw&pattern=%5E%5Cd%7B4%7D-%5Cd%7B2%7D-%5Cd%7B2%7D%24 "HTTP/1.1 200 OK"[0m
+2026-04-09 15:42:33 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:33 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=invalid/path, pattern=None[0m
+2026-04-09 15:42:33 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=invalid/path "HTTP/1.1 400 Bad Request"[0m
+2026-04-09 15:42:33 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:33 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=[invalid[0m
+2026-04-09 15:42:33 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?pattern=[invalid "HTTP/1.1 400 Bad Request"[0m
+2026-04-09 15:42:33 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:33 | INFO     |   84 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-09 15:42:34 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:34 | INFO     |   84 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-09 15:42:34 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-09 15:42:34 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:34 | INFO     |  115 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/export.parquet[0m
+2026-04-09 15:42:34 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-09 15:42:34 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:34 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 422 Un****************ty"[0m
+2026-04-09 15:42:34 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:34 | INFO     |  115 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/missing.parquet[0m
+2026-04-09 15:42:34 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-09 15:42:34 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[36:55][0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[57:84][0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[88:100][0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[138:157][0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[159:186][0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[190:195][0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[233:252][0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[254:280][0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[284:302][0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[340:359][0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[361:408][0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[410:422][0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[424:448][0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[452:464][0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:42:34 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_end with no data[0m
+2026-04-09 15:42:34 | INFO     |  217 | api.py | - | upload_file | Запрос загрузки: dir=test.parquet, original_name=test.parquet[0m
+2026-04-09 15:42:34 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/upload-file "HTTP/1.1 200 OK"[0m
+2026-04-09 15:42:34 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:34 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:42:34 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:42:34 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:42:34 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:42:34 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=None[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 200 OK"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=comtrade/raw, pattern=^\d{4}-\d{2}-\d{2}$[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=comtrade%2Fraw&pattern=%5E%5Cd%7B4%7D-%5Cd%7B2%7D-%5Cd%7B2%7D%24 "HTTP/1.1 200 OK"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=invalid/path, pattern=None[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=invalid/path "HTTP/1.1 400 Bad Request"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=[invalid[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?pattern=[invalid "HTTP/1.1 400 Bad Request"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | INFO     |   84 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | INFO     |   84 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | INFO     |  125 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/export.parquet[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 422 Un****************ty"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | INFO     |  125 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/missing.parquet[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[36:55][0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[57:84][0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[88:100][0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[138:157][0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[159:186][0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[190:195][0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[233:252][0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[254:280][0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[284:302][0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[340:359][0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[361:408][0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[410:422][0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[424:448][0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[452:464][0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:50:55 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_end with no data[0m
+2026-04-09 15:50:55 | INFO     |  227 | api.py | - | upload_file | Запрос загрузки: dir=test.parquet, original_name=test.parquet[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/upload-file "HTTP/1.1 200 OK"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:50:55 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:50:55 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:50:55 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=None[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 200 OK"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=comtrade/raw, pattern=^\d{4}-\d{2}-\d{2}$[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=comtrade%2Fraw&pattern=%5E%5Cd%7B4%7D-%5Cd%7B2%7D-%5Cd%7B2%7D%24 "HTTP/1.1 200 OK"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=invalid/path, pattern=None[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?folder_path=invalid/path "HTTP/1.1 400 Bad Request"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | INFO     |   62 | api.py | - | get_available_folders | Запрос содержимого: path=root, pattern=[invalid[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders?pattern=[invalid "HTTP/1.1 400 Bad Request"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | INFO     |   84 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | INFO     |   84 | api.py | - | check_data | Запрос на проверку данных[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/check-data "HTTP/1.1 200 OK"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | INFO     |  125 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/export.parquet[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 422 Un****************ty"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | INFO     |  125 | api.py | - | extract_schema | Запрос извлечения схемы: file=data/missing.parquet[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/extract-schema "HTTP/1.1 200 OK"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[36:55][0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[57:84][0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[88:100][0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[138:157][0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[159:186][0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[190:195][0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[233:252][0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[254:280][0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[284:302][0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_begin with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[340:359][0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[361:408][0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_field with data[410:422][0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_header_value with data[424:448][0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_header_end with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_headers_finished with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  626 | multipart.py | MultipartParser | callback | Calling on_part_data with data[452:464][0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_part_end with no data[0m
+2026-04-09 15:54:13 | DEBUG    |  629 | multipart.py | MultipartParser | callback | Calling on_end with no data[0m
+2026-04-09 15:54:13 | INFO     |  227 | api.py | - | upload_file | Запрос загрузки: dir=test.parquet, original_name=test.parquet[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: POST http://testserver/api/v1/systems/upload-file "HTTP/1.1 200 OK"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 401 Unauthorized"[0m
+2026-04-09 15:54:13 | DEBUG    |  634 | proactor_events.py | ProactorEventLoop | __init__ | Using proactor: IocpProactor[0m
+2026-04-09 15:54:13 | WARNING  |   44 | api.py | - | verify_token | [SYSTEMS] Отказано: неверный токен[0m
+2026-04-09 15:54:13 | INFO     | 1025 | _client.py | TestClient | _send_single_request | HTTP Request: GET http://testserver/api/v1/systems/available-folders "HTTP/1.1 401 Unauthorized"[0m

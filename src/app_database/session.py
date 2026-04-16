@@ -3,10 +3,10 @@ from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from src.app_database.config import DBConfig
 from src.config.logger import logger
-from src.app_database.base import Base
 
 _engines = {}
 _factories = {}
+
 
 def get_engine(alias: str):
     if alias not in _engines:
@@ -15,11 +15,13 @@ def get_engine(alias: str):
         logger.info(f"[DB_SESSION] Engine создан: {alias}")
     return _engines[alias]
 
+
 def get_session_factory(alias: str) -> async_sessionmaker[AsyncSession]:
     if alias not in _factories:
         engine = get_engine(alias)
         _factories[alias] = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
     return _factories[alias]
+
 
 async def get_async_session(alias: str = "base_01") -> AsyncGenerator[AsyncSession, None]:
     factory = get_session_factory(alias)

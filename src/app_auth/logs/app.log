@@ -1,0 +1,89 @@
+2026-04-13 17:20:59 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-13 17:20:59 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-13 17:26:04 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-13 17:35:16 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-13 18:00:03 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-13 18:00:03 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-13 18:04:18 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-13 18:04:24 | WARNING  |  136 | dependencies.py | - | require_app_token | [AUTH] Отказано: отсутствует заголовок Authorization: Bearer[0m
+2026-04-14 10:00:57 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-14 10:01:00 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 10:01:00 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 10:02:05 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-14 10:05:35 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 10:05:36 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 10:06:09 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-14 10:06:20 | WARNING  |  136 | dependencies.py | - | require_app_token | [AUTH] Отказано: отсутствует заголовок Authorization: Bearer[0m
+2026-04-14 14:54:00 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 14:54:00 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 14:58:15 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-14 14:58:20 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 14:58:20 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 15:01:36 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-14 15:01:54 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 15:01:55 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 15:02:51 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-14 15:03:30 | WARNING  |  136 | dependencies.py | - | require_app_token | [AUTH] Отказано: отсутствует заголовок Authorization: Bearer[0m
+2026-04-14 15:08:16 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-14 15:08:20 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 15:08:21 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 15:08:40 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-14 15:08:40 | ERROR    |  114 | dao.py | AppCredentialDAO | find_by_app_name | [DAO] Ошибка поиска AppCredential: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец app_credentials.updated_at не существует
+HINT:  Возможно, предполагалась ссылка на столбец "app_credentials.created_at".
+[SQL: SELECT app_auth.app_credentials.app_name, app_auth.app_credentials.app_description, app_auth.app_credentials.token_hash, app_auth.app_credentials.is_active, app_auth.app_credentials.created_by, app_auth.app_credentials.id, app_auth.app_credentials.created_at, app_auth.app_credentials.updated_at, roles_1.name, roles_1.id AS id_1, roles_1.created_at AS created_at_1, roles_1.updated_at AS updated_at_1, users_1.phone_number, users_1.first_name, users_1.last_name, users_1.email, users_1.password, users_1.role_id, users_1.id AS id_2, users_1.created_at AS created_at_2, users_1.updated_at AS updated_at_2 
+FROM app_auth.app_credentials LEFT OUTER JOIN app_auth.users AS users_1 ON users_1.id = app_auth.app_credentials.created_by LEFT OUTER JOIN app_auth.roles AS roles_1 ON roles_1.id = users_1.role_id 
+WHERE app_auth.app_credentials.app_name = $1::VARCHAR]
+[parameters: ('string',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)[0m
+2026-04-14 15:09:01 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 15:09:01 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 15:09:37 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 15:09:37 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 15:09:43 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-14 15:09:43 | ERROR    |  114 | dao.py | AppCredentialDAO | find_by_app_name | [DAO] Ошибка поиска AppCredential: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: столбец app_credentials.updated_at не существует
+HINT:  Возможно, предполагалась ссылка на столбец "app_credentials.created_at".
+[SQL: SELECT app_auth.app_credentials.app_name, app_auth.app_credentials.app_description, app_auth.app_credentials.token_hash, app_auth.app_credentials.is_active, app_auth.app_credentials.created_by, app_auth.app_credentials.id, app_auth.app_credentials.created_at, app_auth.app_credentials.updated_at, roles_1.name, roles_1.id AS id_1, roles_1.created_at AS created_at_1, roles_1.updated_at AS updated_at_1, users_1.phone_number, users_1.first_name, users_1.last_name, users_1.email, users_1.password, users_1.role_id, users_1.id AS id_2, users_1.created_at AS created_at_2, users_1.updated_at AS updated_at_2 
+FROM app_auth.app_credentials LEFT OUTER JOIN app_auth.users AS users_1 ON users_1.id = app_auth.app_credentials.created_by LEFT OUTER JOIN app_auth.roles AS roles_1 ON roles_1.id = users_1.role_id 
+WHERE app_auth.app_credentials.app_name = $1::VARCHAR]
+[parameters: ('string',)]
+(Background on this error at: https://sqlalche.me/e/20/f405)[0m
+2026-04-14 15:14:35 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-14 15:14:38 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 15:14:38 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 15:18:07 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-14 15:18:11 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 15:18:11 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 15:18:23 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-14 15:18:23 | WARNING  |   17 | utils.py | - | get_password_hash | Пароль усечён до 72 байт (ограничение bcrypt): исходная длина 256[0m
+2026-04-14 15:18:23 | INFO     |  113 | api.py | - | register_app | [AUTH] Зарегистрировано приложение: string (создатель: user@example.com)[0m
+2026-04-14 15:47:01 | WARNING  |   17 | utils.py | - | get_password_hash | Пароль усечён до 72 байт (ограничение bcrypt): исходная длина 256[0m
+2026-04-14 15:47:01 | INFO     |  113 | api.py | - | register_app | [AUTH] Зарегистрировано приложение: APP_Systems (создатель: user@example.com)[0m
+2026-04-14 17:31:18 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-14 17:31:24 | INFO     |   28 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 17:31:24 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 17:31:35 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-14 17:43:24 | WARNING  |   17 | utils.py | - | get_password_hash | Пароль усечён до 72 байт (ограничение bcrypt): исходная длина 256[0m
+2026-04-14 17:43:24 | INFO     |  113 | api.py | - | register_app | [AUTH] Зарегистрировано приложение: app_systems (создатель: user@example.com)[0m
+2026-04-14 18:19:17 | INFO     |   29 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 18:19:17 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 18:22:02 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-14 18:34:21 | INFO     |   32 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 18:34:21 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 18:34:55 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-14 18:35:02 | INFO     |   32 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 18:35:02 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 18:35:44 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-14 18:35:48 | INFO     |   33 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-14 18:35:48 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-14 18:55:51 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-15 08:41:26 | INFO     |   33 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-15 08:41:26 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-15 08:42:20 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-15 09:15:20 | INFO     |   33 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-15 09:15:20 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-15 11:03:25 | INFO     |  100 | manager.py | DBManager | close_all | [DB_MANAGER] Пул 'local_auth' закрыт[0m
+2026-04-15 15:12:05 | INFO     |   33 | config.py | - | get_dsn | [DB_CONFIG] DSN для 'local_auth' загружен[0m
+2026-04-15 15:12:05 | INFO     |   37 | manager.py | DBManager | init_pool | [DB_MANAGER] Пул 'local_auth' создан (asyncpg)[0m
+2026-04-15 15:12:24 | INFO     |   15 | session.py | - | get_engine | [DB_SESSION] Engine создан: local_auth[0m
+2026-04-15 15:35:25 | WARNING  |   17 | utils.py | - | get_password_hash | Пароль усечён до 72 байт (ограничение bcrypt): исходная длина 256[0m
+2026-04-15 15:35:25 | INFO     |  133 | api.py | - | register_app | [AUTH] Зарегистрировано приложение: my_script (создатель: user@example.com)[0m

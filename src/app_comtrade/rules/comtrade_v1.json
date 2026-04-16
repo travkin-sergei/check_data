@@ -1,0 +1,29 @@
+{
+  "file_type": "parquet",
+  "schema": {
+    "reporter_code": {
+      "type": "INTEGER",
+      "null": true
+    },
+    "partner_code": {
+      "type": "INTEGER",
+      "null": true
+    },
+    "period": {
+      "type": "DATE",
+      "null": true
+    },
+    "trade_value_usd": {
+      "type": "DOUBLE PRECISION",
+      "null": false
+    },
+    "commodity_code": {
+      "type": "VARCHAR",
+      "null": true
+    },
+    "notes": {
+      "type": "VARCHAR",
+      "null": false
+    }
+  }
+}

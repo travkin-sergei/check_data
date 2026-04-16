@@ -1,215 +1,99 @@
 # src/app_comtrade/services.py
-"""
-Простой и надёжный инструмент для загрузки файлов в app_systems.
-Логика: валидация пути → проверка существования → загрузка.
-Изоляция: только httpx + src.config.*
-"""
-import httpx
-from typing import Optional, Union
+from typing import Dict, Any, Tuple, Union, Optional
+from pathlib import Path
 
+from core.type_unifier import SchemaComparator
+from src.app_systems.validators.json_rule_validator import JsonRuleValidator
+from src.config.database import DBManager
 from src.config.logger import logger
-from src.app_comtrade.config import (
-    INTERNAL_API_BASE,
-    INTERNAL_UPLOAD_ENDPOINT,
-    INTERNAL_API_TOKEN,
-    DOWNLOAD_TIMEOUT,
-    ALLOWED_SUFFIXES, INTERNAL_CHECK_ENDPOINT,
-)
 
 
-class FileUploader:
-    """
-    Клиент для безопасной загрузки файлов в app_systems.
+class CheckRule:
+    pass
 
-    Пример использования:
-        uploader = FileUploader(internal_token="...")
-        result = await uploader.upload(
-            source="comtrade",
-            date="2025-04-01",
-            filename="app_database.parquet",
-            file_content=b"...",  # bytes
-            extra_path="world_trade"  # опционально
-        )
-    """
 
-    def __init__(self):
-        self.internal_token = INTERNAL_API_TOKEN
-        self.base_url = INTERNAL_API_BASE
-        self.upload_endpoint = INTERNAL_UPLOAD_ENDPOINT
-        self.check_endpoint = INTERNAL_CHECK_ENDPOINT
+class ComtradeCheckEngine:
+    pass
 
-    def _build_file_path(self, source: str, date: str, filename: str,
-                         extra_path: Optional[str] = None) -> str:
-        """
-        Формирует целевой путь: {source}/{extra_path}/{date}/{filename}
-        """
-        parts = [source]
-        if extra_path and extra_path.strip():
-            parts.append(extra_path.strip("/"))
-        parts.append(date)
-        parts.append(filename)
-        return "/".join(p for p in parts if p)
 
-    def _validate_filename(self, filename: str) -> tuple[bool, str]:
-        """Проверяет, что передано имя файла, а не путь/директория."""
-        if not filename or not isinstance(filename, str):
-            return False, "Имя файла не указано или не является строкой"
+class ComtradeChecker:
+    def __init__(self, db_name: str = "base_01"):
+        self.validator = JsonRuleValidator()
+        self.db = DBManager.get_connection(db_name)
 
-        # Запрещаем пути с разделителями — только имя файла
-        if "/" in filename or "\\" in filename:
-            return False, f"Ожидается имя файла, а не путь: '{filename}'"
+    async def validate_file(
+            self,
+            file_path: str,
+            rule: Union[str, Dict, Path],
+            file_type: str = "parquet"
+    ) -> Tuple[bool, Dict[str, Any]]:
+        """Выполняет валидацию и сохраняет метаданные в БД (PostgreSQL 15)"""
+        is_valid, result = await self.validator.validate(rule, file_path, file_type)
 
-        # Базовая проверка расширения
-        if "." not in filename:
-            return False, f"Файл должен иметь расширение: '{filename}'"
+        # Сохраняем результат валидации в БД (демонстрация зависимости от database.py)
+        self._log_to_db(file_path, result.get("rule_id"), is_valid, len(result.get("errors", [])))
+        return is_valid, result
 
-        return True, ""
-
-    async def _check_exists(self, file_path: str) -> tuple[bool, Optional[dict]]:
-        """
-        Проверяет существование файла через app_systems API.
-        Returns: (exists: bool, response_data: dict|None)
-        """
-        params = {"file_path": file_path}
-        for suf in ALLOWED_SUFFIXES:
-            params["suffix"] = suf
-
-        headers = {}
-        if self.internal_token:
-            headers["Authorization"] = f"Bearer {self.internal_token}"
-
+    def _log_to_db(self, file_path: str, rule_id: Optional[str], is_valid: bool, error_count: int) -> None:
+        if not self.db or not self.db.is_initialized:
+            return
         try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                resp = await client.get(self.check_endpoint, headers=headers, params=params)
-
-                if resp.status_code == 200:
-                    data = resp.json()
-                    exists = data.get("exists", False)
-                    if exists:
-                        size = data.get("file_size")
-                        logger.info(f"Файл уже существует: {file_path} ({size} B)")
-                    return exists, data
-                else:
-                    logger.warning(f"HTTP {resp.status_code} при проверке {file_path}")
-                    return False, None
-
-        except httpx.ConnectError:
-            logger.warning(f"Не удалось подключиться к app_systems для проверки {file_path}")
-            return False, None  # Продолжаем загрузку, если проверка недоступна
+            with self.db.get_cursor(commit=True) as cur:
+                cur.execute("""
+                    INSERT INTO validation_logs (file_path, rule_id, is_valid, error_count, created_at)
+                    VALUES (%s, %s, %s, %s, NOW())
+                    ON CONFLICT (file_path) DO UPDATE SET 
+                        is_valid = EXCLUDED.is_valid,
+                        error_count = EXCLUDED.error_count,
+                        updated_at = NOW();
+                """, (file_path, rule_id, is_valid, error_count))
+            logger.debug(f"Лог валидации сохранён в БД: {file_path}")
         except Exception as e:
-            logger.debug(f"Ошибка проверки {file_path}: {type(e).__name__}: {e}")
-            return False, None
+            logger.warning(f"Не удалось сохранить лог валидации: {e}")
 
-    async def _upload(self, file_path: str, file_content: bytes, filename: str,
-                      overwrite: bool = False) -> tuple[bool, dict]:
-        """
-        Загружает файл через app_systems API.
-        Returns: (success: bool, result: dict)
-        """
-        headers = {}
-        if self.internal_token:
-            headers["Authorization"] = f"Bearer {self.internal_token}"
+    @staticmethod
+    async def _dispatch(rule: CheckRule, base_path: Path) -> Tuple[bool, Dict[str, Any]]:
+        match rule.type:
+            case "schema_match":
+                return await ComtradeCheckEngine._check_schema(rule)
+            case "folder_exists":
+                return await ComtradeCheckEngine._check_folder(rule, base_path)
+            case "file_exists":
+                return await ComtradeCheckEngine._check_file(rule, base_path)
+            case _:
+                return False, {"error": f"Неподдерживаемый тип: {rule.type}"}
 
-        files = {"file": (filename, file_content, "application/octet-stream")}
-        data = {"file_path": file_path, "overwrite": str(overwrite).lower()}
+    @staticmethod
+    async def _check_schema(rule: CheckRule) -> Tuple[bool, Dict[str, Any]]:
+        comparator = SchemaComparator()
+        src = rule.params.get("source_schema")
+        tgt = rule.params.get("target_schema")
+        src_type = rule.params.get("source_type", "parquet")
+        tgt_type = rule.params.get("target_type", "postgresql")
 
-        try:
-            async with httpx.AsyncClient(timeout=DOWNLOAD_TIMEOUT) as client:
-                resp = await client.post(
-                    self.upload_endpoint,
-                    headers=headers,
-                    files=files,
-                    data=data
-                )
+        if not src or not tgt:
+            return False, {"error": "Требуются params.source_schema и params.target_schema"}
 
-                if resp.status_code == 200:
-                    result = resp.json()
-                    logger.info(f"Загружено: {filename} → {file_path}/ ({result.get('file_size', 0)} B)")
-                    return True, result
-                else:
-                    error_text = resp.text[:200] if resp.text else "No content"
-                    logger.error(f"Ошибка загрузки {filename}: HTTP {resp.status_code} | {error_text}")
-                    return False, {"error": f"HTTP {resp.status_code}: {error_text}"}
+        ok, mismatches = comparator.compare(src, src_type, tgt, tgt_type)
+        return ok, {"mismatches": mismatches, "message": "Схемы совпадают" if ok else "Обнаружены несовпадения"}
 
-        except httpx.ConnectError as e:
-            logger.error(f"Не удалось подключиться к app_systems: {e}")
-            return False, {"error": f"Connection error: {e}"}
-        except Exception as e:
-            logger.error(f"Ошибка загрузки {filename}: {type(e).__name__}: {e}")
-            return False, {"error": f"{type(e).__name__}: {e}"}
+    @staticmethod
+    async def _check_folder(rule: CheckRule, base_path: Path) -> Tuple[bool, Dict[str, Any]]:
+        path = base_path / rule.target
+        exists = path.is_dir()
+        return exists, {"path": str(path), "exists": exists}
 
-    async def upload(self,
-                     source: str,
-                     date: str,
-                     filename: str,
-                     file_content: Union[bytes, bytearray],
-                     extra_path: Optional[str] = None,
-                     overwrite: bool = False) -> dict:
-        """
-        Полный цикл: валидация → проверка → загрузка.
+    @staticmethod
+    async def _check_file(rule: CheckRule, base_path: Path) -> Tuple[bool, Dict[str, Any]]:
+        path = base_path / rule.target
+        exists = path.is_file()
+        size = path.stat().st_size if exists else 0
+        min_size = rule.params.get("min_size_bytes", 0)
+        valid_size = size >= min_size
 
-        Args:
-            source: Имя источника (например, "comtrade")
-            date: Дата в формате "YYYY-MM-DD"
-            filename: Имя файла (только имя, без пути!)
-            file_content: Содержимое файла в байтах
-            extra_path: Дополнительный путь (например, "world_trade")
-            overwrite: Разрешить перезапись (по умолчанию False)
-
-        Returns:
-            dict с результатом:
-            {
-                "success": bool,
-                "status": "uploaded" | "skipped" | "failed",
-                "file_path": str,
-                "message": str,
-                "details": dict  # опционально
-            }
-        """
-        # 1. Валидация имени файла
-        valid, error_msg = self._validate_filename(filename)
-        if not valid:
-            logger.error(f"Валидация не пройдена: {error_msg}")
-            return {
-                "success": False,
-                "status": "failed",
-                "file_path": None,
-                "message": f"Invalid filename: {error_msg}",
-                "details": {"filename": filename}
-            }
-
-        # 2. Формируем целевой путь
-        file_path = self._build_file_path(source, date, filename, extra_path)
-        logger.debug(f"Целевой путь: {file_path}")
-
-        # 3. Проверяем существование (только если не разрешена перезапись)
-        if not overwrite:
-            exists, check_data = await self._check_exists(file_path)
-            if exists:
-                return {
-                    "success": True,
-                    "status": "skipped",
-                    "file_path": file_path,
-                    "message": "Файл уже существует, загрузка пропущена",
-                    "details": check_data
-                }
-
-        # 4. Загружаем файл
-        success, result = await self._upload(file_path, file_content, filename, overwrite)
-
-        if success:
-            return {
-                "success": True,
-                "status": "uploaded",
-                "file_path": file_path,
-                "message": "Файл успешно загружен",
-                "details": result
-            }
-        else:
-            return {
-                "success": False,
-                "status": "failed",
-                "file_path": file_path,
-                "message": result.get("error", "Unknown upload error"),
-                "details": result
-            }
+        return exists and valid_size, {
+            "path": str(path),
+            "exists": exists,
+            "size_bytes": size,
+            "meets_min_size": valid_size
+        }

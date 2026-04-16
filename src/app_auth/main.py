@@ -33,6 +33,7 @@ app.include_router(router, prefix=settings.API_PREFIX_V1)
 
 if __name__ == "__main__":
     import uvicorn
+
     print(f"http://127.0.0.1:{settings.PORT}/docs#/")
     uvicorn.run(
         "src.app_auth.main:app",

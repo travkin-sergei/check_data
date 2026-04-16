@@ -128,10 +128,6 @@ class FileExistsResponse(BaseSchema):
     """Ответ на проверку существования файла."""
     success: bool
     exists: bool
-    file_path: str = Field(..., description="Запрошенный или фактический найденный путь")
-    found_suffix: Optional[str] = Field(
-        None,
-        description="Найденный суффикс (если файл обнаружен с модифицированным именем)"
-    )
+    file_path: str = Field(..., description="Запрошенный путь")
     file_size: Optional[int] = Field(None, description="Размер файла в байтах (если существует)")
     error: Optional[str] = Field(None)

@@ -295,7 +295,7 @@ class RelativePathFormatter(colorlog.ColoredFormatter):
 
 
 def config_logging(level=logging.INFO,
-                   log_file: str | Path | None = 'logs/app_auth.log',
+                   log_file: str | Path | None = 'logs/app.log',
                    mask_sensitive_data: bool = True,
                    max_bytes: int = 10 * 1024 * 1024,
                    backup_count: int = 5,

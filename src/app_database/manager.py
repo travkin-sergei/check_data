@@ -1,12 +1,13 @@
 # src/app_database/manager.py
 import asyncio
-from contextlib import asynccontextmanager, contextmanager
-from typing import Optional, Dict, Any, List, AsyncGenerator
 import asyncpg
 import psycopg2
+
+from contextlib import asynccontextmanager, contextmanager
+from typing import Optional, Dict, Any, List, AsyncGenerator
 from src.config.logger import logger
 from src.app_database.config import DBConfig
-from src.core.type_unifier import SchemaComparator  # Явная зависимость
+from src.core.type_unifier import SchemaComparator
 
 
 class DBManager:

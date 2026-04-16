@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     print(f'http://127.0.0.1:{PORT}/docs#/')
     uvicorn.run(
-        "src.app_macmap.main:app_auth",
+        "src.app_macmap.main:app",
         host=HOST,
         port=PORT,
         reload=RELOAD,

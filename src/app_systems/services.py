@@ -17,7 +17,7 @@ from functools import lru_cache
 from typing import List, Tuple, Dict, Any, Optional, Set
 
 from src.app_systems.config import DATA_ROOT_DIR
-from app_database.database import DBManager
+from src.config.database import DBManager
 from src.config.logger import logger
 from src.core.data_checker import DataChecker
 from src.core.type_unifier import SchemaComparator
@@ -350,54 +350,34 @@ class AppDataChecker:
         return dict(zip(folders, results))
 
     @staticmethod
-    async def check_file_exists(file_path: str,
-                                suffixes: Optional[List[str]] = None) -> Tuple[bool, Dict[str, Any]]:
-        """Проверка существования файла с опциональным поиском по суффиксам."""
+    async def check_file_exists(file_path: str) -> Tuple[bool, Dict[str, Any]]:
+        """
+        Проверка существования файла с защитой от Path Traversal.
+        Выполняется быстро, но помечен как async для совместимости с FastAPI-роутами.
+        """
         try:
             base = Path(DATA_ROOT_DIR).resolve()
             full_path = (base / file_path).resolve()
 
-            # Защита от Path Traversal
+            # 1. Защита от выхода за пределы DATA_ROOT_DIR
             try:
                 full_path.relative_to(base)
             except ValueError:
                 logger.warning(f"Попытка проверки пути вне базы: {file_path}")
                 return False, {"error": "Доступ запрещён: путь выходит за пределы разрешённой директории"}
 
-            # Проверяем оригинальный файл
-            if full_path.exists() and full_path.is_file():
-                size = full_path.stat().st_size
-                logger.info(f"Файл найден (оригинал): {file_path} ({size} B)")
-                return True, {
-                    "exists": True, "file_path": file_path, "found_suffix": None,
-                    "file_size": size, "error": None
-                }
+            # 2. Проверка существования
+            if not full_path.exists():
+                return True, {"exists": False, "file_path": file_path, "file_size": None, "error": None}
 
-            # Проверяем варианты с суффиксами
-            if suffixes:
-                for suf in suffixes:
-                    clean_suf = suf.lstrip(".")
-                    candidate_name = f"{file_path}.{clean_suf}"
-                    candidate_path = (base / candidate_name).resolve()
+            # 3. Проверка, что это файл, а не папка
+            if not full_path.is_file():
+                return False, {"error": "Указанный путь является директорией, а не файлом"}
 
-                    try:
-                        candidate_path.relative_to(base)
-                    except ValueError:
-                        continue
-
-                    if candidate_path.exists() and candidate_path.is_file():
-                        size = candidate_path.stat().st_size
-                        logger.info(f"Файл найден с суффиксом '{clean_suf}': {candidate_name} ({size} B)")
-                        return True, {
-                            "exists": True, "file_path": candidate_name,
-                            "found_suffix": clean_suf, "file_size": size, "error": None
-                        }
-
-            # Не найден
-            return True, {
-                "exists": False, "file_path": file_path,
-                "found_suffix": None, "file_size": None, "error": None
-            }
+            # 4. Успех
+            size = full_path.stat().st_size
+            logger.info(f"Файл найден: {file_path} ({size} B)")
+            return True, {"exists": True, "file_path": file_path, "file_size": size, "error": None}
 
         except Exception as e:
             logger.error(f"Ошибка проверки файла: {e}", exc_info=True)

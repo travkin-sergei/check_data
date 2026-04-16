@@ -44,8 +44,8 @@ def send_folders_to_check(folders_list, base_url):
     Обращение к ручки проверки наличия списка источников (папок).
     Args: список папок.
     """
-    url = f"{base_url.rstrip('/')}/api/v1/systems/check-app_database"
-    possible_keys = ["folders", "paths", "items", "app_database"]
+    url = f"{base_url.rstrip('/')}/api/v1/systems/check-data"
+    possible_keys = ["folders", "paths", "items", "data"]
 
     for key in possible_keys:
         payload = {key: folders_list}

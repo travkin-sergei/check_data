@@ -1,5 +1,6 @@
 # src/app_auth/schemas.py
 import re
+from datetime import datetime
 from typing import Self
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator, model_validator, computed_field
 
@@ -70,3 +71,35 @@ class SUserInfo(UserBase):
 
     @computed_field
     def role_id(self) -> int: return self.role.id
+
+
+class SAppCredentialCreate(BaseModel):
+    """Запрос на регистрацию нового приложения."""
+
+    app_name: str = Field(..., min_length=3, max_length=50)
+    app_description: str | None = Field(None, max_length=200)
+    ttl_days: int | None = Field(365, ge=1, le=3650, description="Срок действия токена в днях (по умолч. 365)")
+
+
+class SAppCredentialResponse(BaseModel):
+    """Ответ после регистрации: содержит токен (только при создании!)."""
+    success: bool
+    message: str
+    app_name: str
+    app_token: str | None = Field(None, description="Токен приложения — показать ТОЛЬКО при создании!")
+    created_at: datetime | None = None
+    created_by: str | None = None  # login/email создателя
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SAppCredentialList(BaseModel):
+    """Публичная информация о зарегистрированном приложении (без токена!)."""
+    id: int
+    app_name: str
+    app_description: str | None
+    is_active: bool
+    created_at: datetime
+    created_by: str  # login/email
+
+    model_config = ConfigDict(from_attributes=True)

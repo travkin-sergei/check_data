@@ -1,6 +1,4 @@
-# src/app_auth/dependencies.py
 import re
-
 from datetime import datetime, timezone
 from jose import jwt, JWTError, ExpiredSignatureError
 from typing import AsyncGenerator
@@ -11,7 +9,7 @@ from fastapi import Header, HTTPException, status, Depends, Request
 from src.config.logger import logger
 from src.app_database.session import get_session_factory
 from src.app_auth.config import settings
-from src.app_auth.dao import UsersDAO
+from src.app_auth.dao import UsersDAO, AppCredentialDAO  # ← Добавлен AppCredentialDAO
 from src.app_auth.models import User
 from src.app_auth.exceptions import (
     TokenNoFound, NoJwtException, TokenExpiredException,
@@ -41,7 +39,7 @@ async def get_session_without_commit() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 
-# === Авторизация ===
+# === Авторизация пользователей (JWT + Cookies) ===
 def get_access_token(request: Request) -> str:
     token = request.cookies.get('user_access_token')
     if not token:
@@ -114,40 +112,39 @@ async def check_refresh_token(token: str = Depends(get_refresh_token),
         raise NoJwtException
 
 
+# === M2M Аутентификация (Приложения) ===
 def _get_valid_api_tokens() -> set[str]:
     """Безопасно парсит APP_AUTH_API_TOKENS из .env."""
     raw = settings.API_TOKENS
     if not raw:
         return set()
-    # Поддержка разделителей: запятая, точка с запятой, пробел, \n, \r
     return {t.strip() for t in re.split(r'[,;\s\n\r]+', raw) if t.strip()}
 
 
-async def require_app_token(
-        authorization: str | None = Header(None, alias="Authorization"),
-        x_app_name: str | None = Header(None, alias="x-app-name")
-) -> str:
-    """
-    FastAPI Dependency для аутентификации ДРУГИХ ПРИЛОЖЕНИЙ.
-    Не требует регистрации, логина или JWT.
-    Проверяет статический Bearer-токен из .env.
-    """
+async def require_app_token(authorization: str | None = Header(None, alias="Authorization"),
+                            x_app_name: str | None = Header(None, alias="x-app-name"),
+                            session: AsyncSession = Depends(get_session_without_commit)) -> str:
     if not authorization or not authorization.startswith("Bearer "):
-        logger.warning("[AUTH] Отказано: отсутствует заголовок Authorization: Bearer")
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail="Требуется заголовок: Authorization: Bearer <token>")
+        raise HTTPException(status_code=401, detail="Требуется заголовок: Authorization: Bearer <token>")
 
-    token = authorization.replace("Bearer ", "").strip()
-    valid_tokens = _get_valid_api_tokens()
+    token = authorization.replace("Bearer ", "", 1).strip()
+    app_name = (x_app_name or "unknown").strip()
 
-    if not valid_tokens:
-        logger.critical("[AUTH] Токены не настроены: переменная APP_AUTH_API_TOKENS пуста в .env")
-        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                            detail="Авторизация приложений не настроена на сервере")
+    # 1. Сначала проверяем БД (продакшен)
+    try:
+        cred = await AppCredentialDAO(session).find_by_app_name(app_name)
+        if cred and cred.is_active and cred.verify_token(token):
+            logger.info(f"[AUTH] Доступ (БД): {app_name}")
+            return token
+    except Exception as e:
+        logger.debug(f"[AUTH] БД недоступна, переходим к .env: {e}")
 
-    if token not in valid_tokens:
-        logger.warning(f"[AUTH] Отказано: невалидный токен для приложения {x_app_name or 'unknown'}")
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Недействительный токен")
+    # 2. Фоллбэк на .env (разработка)
+    valid_env = _get_valid_api_tokens()
+    if valid_env and token in valid_env:
+        logger.info(f"[AUTH] Доступ (.env): {app_name}")
+        return token
 
-    logger.debug(f"[AUTH] Доступ разрешён: приложение {x_app_name or 'unknown'}")
-    return token
+    # 3. Отказ
+    logger.warning(f"[AUTH] Отказ: {app_name}")
+    raise HTTPException(status_code=401, detail="Недействительный токен приложения")

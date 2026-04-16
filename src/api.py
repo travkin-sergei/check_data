@@ -4,15 +4,13 @@ API роутеры для общего сервиса.
 Системные эндпоинты + подключение модулей приложений.
 """
 from fastapi import APIRouter, status
-from typing import List, Dict
+from typing import List, Dict, Any
 
 from src.config.logger import logger
 
+# === Глобальный список OpenAPI tags (собирается динамически) ===
 openapi_tags: List[Dict[str, str]] = [
-    {
-        "name": "System",
-        "description": "Системные эндпоинты: здоровье, готовность, метрики"
-    },
+    {"name": "System", "description": "Системные эндпоинты: здоровье, готовность, метрики"},
 ]
 
 
@@ -23,21 +21,26 @@ def _collect_app_openapi_tags() -> List[Dict[str, str]]:
     """
     collected = []
 
+    # === Список приложений для подключения ===
     apps = [
         ("app_systems", "src.app_systems.config"),
         ("app_comtrade", "src.app_comtrade.config"),
+        # Добавьте новые приложения сюда: ("app_name", "src.app_name.config"),
     ]
 
     for app_name, config_path in apps:
         try:
-
+            # Динамический импорт конфига
             import importlib
             config_module = importlib.import_module(config_path)
 
+            # Проверяем наличие openapi_tags
             if hasattr(config_module, 'openapi_tags'):
                 tag = config_module.openapi_tags
 
+                # Поддерживаем оба формата: dict и list[dict]
                 if isinstance(tag, dict) and tag.get("name"):
+                    # Проверяем на дубликаты
                     if not any(t["name"] == tag["name"] for t in collected):
                         collected.append(tag)
                         logger.debug(f"Добавлен тег из {app_name}: {tag['name']}")

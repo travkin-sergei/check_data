@@ -61,7 +61,7 @@ if __name__ == "__main__":
     logger.info(f"Swagger: http://{HOST}:{PORT}/docs")
     logger.info(f"ReDoc:   http://{HOST}:{PORT}/redoc")
     uvicorn.run(
-        "src.main:app_auth",
+        "src.main:app",
         host=HOST,
         port=PORT,
         reload=RELOAD,
