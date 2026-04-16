@@ -76,3 +76,50 @@ def generate_app_token(length: int = 256) -> str:
 async def hash_app_token(token: str) -> str:
     """Хеширует токен приложения через bcrypt (как пароли пользователей)."""
     return get_password_hash(token)  # переиспользуем существующую функцию
+
+
+def create_app_jwt_token(app_name: str, app_id: int, ttl_hours: int = 1) -> str:
+    """
+    Создаёт JWT токен для межсервисного взаимодействия с TTL = 1 час.
+    
+    :param app_name: имя приложения
+    :param app_id: ID записи в app_credentials
+    :param ttl_hours: время жизни токена в часах (по умолчанию 1)
+    :return: JWT токен
+    """
+    now = datetime.now(timezone.utc)
+    payload = {
+        "sub": str(app_id),
+        "app_name": app_name,
+        "type": "app_access",
+        "iat": int(now.timestamp()),
+        "exp": int((now + timedelta(hours=ttl_hours)).timestamp())
+    }
+    return jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+
+
+async def verify_app_jwt_token(token: str) -> dict | None:
+    """
+    Проверяет JWT токен приложения.
+    
+    :param token: JWT токен
+    :return: payload токена или None если невалиден
+    """
+    from jose import ExpiredSignatureError, JWTError
+    
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        
+        # Дополнительная проверка времени жизни
+        expire = payload.get('exp')
+        if not expire or datetime.fromtimestamp(int(expire), tz=timezone.utc) < datetime.now(timezone.utc):
+            logger.warning(f"[APP JWT] Токен истёк: exp={expire}")
+            return None
+            
+        return payload
+    except ExpiredSignatureError:
+        logger.warning("[APP JWT] Токен истёк (ExpiredSignatureError)")
+        return None
+    except JWTError as e:
+        logger.error(f"[APP JWT] Ошибка валидации токена: {e}")
+        return None

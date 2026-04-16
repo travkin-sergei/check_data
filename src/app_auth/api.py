@@ -165,6 +165,30 @@ async def list_registered_apps(current_admin: User = Depends(get_current_admin_u
 
 
 @router.post(
+    "/service/apps/{app_name}/get-temporary-token/",
+    summary="Получить временный токен (1 час) для межсервисного взаимодействия",
+    description="Генерирует JWT токен со сроком жизни 1 час для обращения к другим сервисам."
+)
+async def get_temporary_token(
+        app_name: str,
+        current_admin: User = Depends(get_current_admin_user),
+        session: AsyncSession = Depends(get_session_without_commit)
+):
+    """Выдаёт временный JWT токен для приложения."""
+    from src.app_auth.dependencies import get_app_token_for_service
+    
+    jwt_token = await get_app_token_for_service(app_name, session)
+    
+    return {
+        "success": True,
+        "app_name": app_name,
+        "token_type": "Bearer",
+        "access_token": jwt_token,
+        "expires_in": 3600  # 1 час в секундах
+    }
+
+
+@router.post(
     "/service/verify-token/",
     summary="Проверить токен приложения (для внутреннего использования)",
     description="Используется другими сервисами для валидации токенов."

@@ -130,7 +130,17 @@ async def require_app_token(authorization: str | None = Header(None, alias="Auth
     token = authorization.replace("Bearer ", "", 1).strip()
     app_name = (x_app_name or "unknown").strip()
 
-    # 1. Сначала проверяем БД (продакшен)
+    # 1. Сначала проверяем JWT токен (временный, 1 час)
+    from src.app_auth.utils import verify_app_jwt_token
+    jwt_payload = await verify_app_jwt_token(token)
+    if jwt_payload and jwt_payload.get("type") == "app_access":
+        # Проверяем, что приложение существует и активно
+        cred = await AppCredentialDAO(session).find_one_or_none_by_id(data_id=int(jwt_payload.get("sub")))
+        if cred and cred.is_active and not cred.is_expired():
+            logger.info(f"[AUTH] Доступ (JWT): {app_name}")
+            return token
+
+    # 2. Проверяем БД (долгосрочные токены для обратной совместимости)
     try:
         cred = await AppCredentialDAO(session).find_by_app_name(app_name)
         if cred and cred.is_active and cred.verify_token(token):
@@ -139,12 +149,39 @@ async def require_app_token(authorization: str | None = Header(None, alias="Auth
     except Exception as e:
         logger.debug(f"[AUTH] БД недоступна, переходим к .env: {e}")
 
-    # 2. Фоллбэк на .env (разработка)
+    # 3. Фоллбэк на .env (разработка)
     valid_env = _get_valid_api_tokens()
     if valid_env and token in valid_env:
         logger.info(f"[AUTH] Доступ (.env): {app_name}")
         return token
 
-    # 3. Отказ
+    # 4. Отказ
     logger.warning(f"[AUTH] Отказ: {app_name}")
     raise HTTPException(status_code=401, detail="Недействительный токен приложения")
+
+
+async def get_app_token_for_service(
+        app_name: str,
+        session: AsyncSession = Depends(get_session_without_commit)
+) -> str:
+    """
+    Генерирует временный JWT токен (1 час) для взаимодействия с другим сервисом.
+    Используется внутри системы, когда одно приложение хочет обратиться к другому.
+    
+    :param app_name: имя приложения-источника
+    :param session: сессия БД
+    :return: JWT токен со сроком жизни 1 час
+    """
+    from src.app_auth.utils import create_app_jwt_token
+    
+    cred = await AppCredentialDAO(session).find_by_app_name(app_name)
+    if not cred or not cred.is_active:
+        raise HTTPException(status_code=404, detail=f"Приложение '{app_name}' не найдено или неактивно")
+    
+    if cred.is_expired():
+        raise HTTPException(status_code=403, detail=f"Токен приложения '{app_name}' истёк")
+    
+    # Генерируем новый JWT токен на 1 час
+    jwt_token = create_app_jwt_token(app_name=cred.app_name, app_id=cred.id, ttl_hours=1)
+    logger.info(f"[SSO] Выдан временный токен для {app_name} (истекает через 1 час)")
+    return jwt_token
