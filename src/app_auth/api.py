@@ -1,4 +1,5 @@
 # src/app_auth/api.py
+from datetime import datetime, timezone, timedelta
 from typing import List
 from fastapi import APIRouter, Response, Depends, HTTPException, status, Header
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -53,7 +54,7 @@ async def auth_user(response: Response, user_data: SUserAuth,
                 hashed = get_password_hash(random_password)
                 new_user = User(
                     email=user_data.email,
-                    phone_number=sso_user_info.get('phone', '+70000000000'),
+                    #phone_number=sso_user_info.get('phone', '+70000000000'),
                     first_name=sso_user_info.get('first_name', 'SSO'),
                     last_name=sso_user_info.get('last_name', 'User'),
                     password=hashed,

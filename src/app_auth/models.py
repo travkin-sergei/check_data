@@ -21,9 +21,9 @@ class User(Base):
 
     @declared_attr
     def __table_args__(cls):
-        return {"schema": "app_auth"}  # ← ОБЯЗАТЕЛЬНО: та же схема
+        return {"schema": "app_auth"}
 
-    phone_number: Mapped[str] = mapped_column(unique=True, nullable=False)
+    #phone_number: Mapped[str] = mapped_column(unique=True, nullable=False)
     first_name: Mapped[str]
     last_name: Mapped[str]
     email: Mapped[str] = mapped_column(unique=True, nullable=False)

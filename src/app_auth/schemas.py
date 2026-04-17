@@ -14,11 +14,11 @@ class EmailModel(BaseModel):
 
 
 class UserBase(EmailModel):
-    phone_number: str = Field(description="Номер телефона в формате +7XXXXXXXXXX")
+    #phone_number: str = Field(description="Номер телефона в формате +7XXXXXXXXXX")
     first_name: str = Field(min_length=3, max_length=50)
     last_name: str = Field(min_length=3, max_length=50)
 
-    @field_validator("phone_number")
+    #@field_validator("phone_number")
     @classmethod
     def validate_phone(cls, v: str) -> str:
         if not re.match(r'^\+\d{5,15}$', v):
