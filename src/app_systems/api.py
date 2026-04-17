@@ -31,9 +31,10 @@ router = APIRouter(tags=[TAG_NAME])
 # === Простая локальная авторизация ===
 security = HTTPBearer(auto_error=False)
 
+
 @router.post("/service/verify-token/")
 async def verify_app_token(
-    app_token: str = Depends(require_app_token)  # require_app_token уже проверяет всё
+    app_token: str = Depends(require_app_auth)
 ):
     """Проверяет токен приложения и возвращает его метаданные."""
     # Если мы здесь, токен валиден
