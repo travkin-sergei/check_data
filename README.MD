@@ -42,3 +42,8 @@ graph LR
 ```bash
     pytest tests/app_systems/test_api.py -v
 ```
+
+## Установка
+```bash
+    pip install -r requirements.txt --default-timeout=100 --no-cache-dir
+```
