@@ -18,13 +18,14 @@ from src.app_file_manager.config import APP_AUTH_URL
 async def require_app_auth(authorization: str | None = Header(None, alias="Authorization")) -> dict:
     """
     Делегирует проверку токена в app_auth.
-    Требует заголовок: Authorization: Bearer <token>
+    Требует заголовок: Authorization: Bearer <JWT-token>
+    Постоянные токены НЕ принимаются — только временные JWT.
     """
     if not authorization or not authorization.startswith("Bearer "):
         logger.warning("[SYSTEMS] Отказано: отсутствует заголовок Authorization")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Требуется заголовок: Authorization: Bearer <token>"
+            detail="Требуется заголовок: Authorization: Bearer <JWT-token>"
         )
 
     token = authorization.replace("Bearer ", "", 1).strip()
@@ -64,17 +65,20 @@ async def verify_app_systems_token(
     x_app_name: Optional[str] = Header(None, alias="X-App-Name")
 ) -> bool:
     """
-    FastAPI Dependency для валидации межсервисного токена.
+    FastAPI Dependency для валидации межсервисного JWT-токена.
     Логика:
       1. Делегирование проверки в app_auth через HTTP (production)
-      2. Фоллбэк на локальные токены из .env (development/graceful degradation)
+      2. Фоллбэк на локальные токены из .env ТОЛЬКО для разработки (НЕ в production)
+    
+    ВНИМАНИЕ: Постоянные токены работают только в режиме разработки!
+    В production требуется JWT-токен со сроком действия 1 час.
     """
     # 1. Извлечение Bearer токена
     if not authorization or not authorization.startswith("Bearer "):
         logger.warning("[SYSTEMS] Отказано: отсутствует заголовок Authorization")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Требуется заголовок: Authorization: Bearer <token>"
+            detail="Требуется заголовок: Authorization: Bearer <JWT-token>"
         )
 
     token = authorization.replace("Bearer ", "").strip()
@@ -102,9 +106,10 @@ async def verify_app_systems_token(
     except Exception as e:
         logger.error(f"[SYSTEMS] ⚠️ Ошибка связи с app_auth: {e}", exc_info=True)
 
-    # 3. Фоллбэк на локальные токены (.env) для независимой разработки
+    # 3. Фоллбэк на локальные токены (.env) ТОЛЬКО для разработки
+    # В production этот блок должен быть отключён!
     if token in APP_TOKEN:
-        logger.info(f"[SYSTEMS] 🔑 Валидация пройдена (локальный .env): '{app_name}'")
+        logger.warning(f"[SYSTEMS] 🔑 Валидация пройдена (локальный .env): '{app_name}' — ТОЛЬКО ДЛЯ РАЗРАБОТКИ!")
         return True
 
     # 4. Отказ в доступе

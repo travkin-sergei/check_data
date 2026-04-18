@@ -47,7 +47,7 @@ class AppCredential(Base):
 
     app_name: Mapped[str] = mapped_column(unique=True, nullable=False, index=True)
     app_description: Mapped[str | None]
-    token_hash: Mapped[str] = mapped_column(unique=True, nullable=False)
+    token_hash: Mapped[str] = mapped_column(unique=True, nullable=False)  # Хеш client_secret
     is_active: Mapped[bool] = mapped_column(default=True)
     created_by: Mapped[int] = mapped_column(ForeignKey('app_auth.users.id'), nullable=False)
 
@@ -61,6 +61,6 @@ class AppCredential(Base):
         return self.expires_at < datetime.now(timezone.utc)
 
     def verify_token(self, token: str) -> bool:
-        """Проверяет токен против хеша (bcrypt)."""
+        """Проверяет токен (client_secret) против хеша (bcrypt)."""
         from src.app_auth.utils import verify_password
         return verify_password(token, self.token_hash)

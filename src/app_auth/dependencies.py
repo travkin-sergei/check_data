@@ -1,4 +1,3 @@
-import re
 from datetime import datetime, timezone
 from jose import jwt, JWTError, ExpiredSignatureError
 from typing import AsyncGenerator
@@ -112,39 +111,53 @@ async def check_refresh_token(token: str = Depends(get_refresh_token),
         raise NoJwtException
 
 
-# === M2M Аутентификация (Приложения) ===
-def _get_valid_api_tokens() -> set[str]:
-    """Безопасно парсит APP_AUTH_API_TOKENS из .env."""
-    raw = settings.API_TOKENS
-    if not raw:
-        return set()
-    return {t.strip() for t in re.split(r'[,;\s\n\r]+', raw) if t.strip()}
-
-
-async def require_app_token(authorization: str | None = Header(None, alias="Authorization"),
-                            x_app_name: str | None = Header(None, alias="x-app-name"),
-                            session: AsyncSession = Depends(get_session_without_commit)) -> str:
+# === M2M Аутентификация (Приложения) — ТОЛЬКО JWT ===
+async def require_app_token(
+    authorization: str | None = Header(None, alias="Authorization"),
+    x_app_name: str | None = Header(None, alias="x-app-name"),
+    session: AsyncSession = Depends(get_session_without_commit)
+) -> dict:
+    """
+    Проверяет JWT-токен приложения.
+    Постоянные токены НЕ принимаются — только временные JWT с exp.
+    Возвращает payload токена для аудита.
+    """
     if not authorization or not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Требуется заголовок: Authorization: Bearer <token>")
+        raise HTTPException(status_code=401, detail="Требуется заголовок: Authorization: Bearer <JWT-token>")
 
     token = authorization.replace("Bearer ", "", 1).strip()
     app_name = (x_app_name or "unknown").strip()
 
-    # 1. Сначала проверяем БД (продакшен)
+    # 1. Декодируем JWT (только access_token типа "app")
     try:
-        cred = await AppCredentialDAO(session).find_by_app_name(app_name)
-        if cred and cred.is_active and cred.verify_token(token):
-            logger.info(f"[AUTH] Доступ (БД): {app_name}")
-            return token
-    except Exception as e:
-        logger.debug(f"[AUTH] БД недоступна, переходим к .env: {e}")
+        from jose import jwt, JWTError, ExpiredSignatureError
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+    except ExpiredSignatureError:
+        logger.warning(f"[AUTH] Истёк JWT-токен приложения: {app_name}")
+        raise HTTPException(status_code=401, detail="Истёк срок действия токена приложения")
+    except JWTError as e:
+        logger.warning(f"[AUTH] Неверный JWT-токен приложения {app_name}: {e}")
+        raise HTTPException(status_code=401, detail="Недействительный токен приложения")
 
-    # 2. Фоллбэк на .env (разработка)
-    valid_env = _get_valid_api_tokens()
-    if valid_env and token in valid_env:
-        logger.info(f"[AUTH] Доступ (.env): {app_name}")
-        return token
+    # 2. Проверяем тип токена и наличие app_name в payload
+    if payload.get("type") != "app_access":
+        raise HTTPException(status_code=403, detail="Токен не является access_token приложения")
 
-    # 3. Отказ
-    logger.warning(f"[AUTH] Отказ: {app_name}")
-    raise HTTPException(status_code=401, detail="Недействительный токен приложения")
+    token_app_name = payload.get("app_name")
+    if not token_app_name or token_app_name != app_name:
+        logger.warning(f"[AUTH] Несовпадение app_name: в токене '{token_app_name}', в заголовке '{app_name}'")
+        raise HTTPException(status_code=403, detail="app_name в токене не совпадает с X-App-Name")
+
+    # 3. Проверяем, что приложение существует и активно в БД
+    cred = await AppCredentialDAO(session).find_by_app_name(app_name)
+    if not cred or not cred.is_active:
+        logger.warning(f"[AUTH] Приложение '{app_name}' не найдено или деактивировано")
+        raise HTTPException(status_code=403, detail="Приложение не зарегистрировано или деактивировано")
+
+    # 4. Проверяем срок действия (если expires_at установлен в credentials)
+    if cred.expires_at and cred.expires_at < datetime.now(timezone.utc):
+        logger.warning(f"[AUTH] Истёк срок действия учётных данных приложения: {app_name}")
+        raise HTTPException(status_code=403, detail="Срок действия учётных данных приложения истёк")
+
+    logger.info(f"[AUTH] Доступ подтверждён (JWT): {app_name}")
+    return payload

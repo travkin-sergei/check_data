@@ -76,3 +76,24 @@ def generate_app_token(length: int = 256) -> str:
 async def hash_app_token(token: str) -> str:
     """Хеширует токен приложения через bcrypt (как пароли пользователей)."""
     return get_password_hash(token)  # переиспользуем существующую функцию
+
+
+def create_app_tokens(data: dict) -> dict:
+    """Создаёт пару access/refresh токенов для приложения через python-jose."""
+    from datetime import datetime, timedelta, timezone
+    from jose import jwt
+    now = datetime.now(timezone.utc)
+    access_payload = {
+        **data,
+        "exp": int((now + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)).timestamp()),
+        "type": "app_access"
+    }
+    refresh_payload = {
+        **data,
+        "exp": int((now + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)).timestamp()),
+        "type": "app_refresh"
+    }
+    return {
+        "access_token": jwt.encode(access_payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM),
+        "refresh_token": jwt.encode(refresh_payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM),
+    }
