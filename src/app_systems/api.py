@@ -34,11 +34,11 @@ security = HTTPBearer(auto_error=False)
 
 @router.post("/service/verify-token/")
 async def verify_app_token(
-    app_token: str = Depends(require_app_auth)
+    app_token: str = Depends(require_app_auth)  # require_app_auth уже проверяет всё
 ):
     """Проверяет токен приложения и возвращает его метаданные."""
     # Если мы здесь, токен валиден
-    return {"valid": True, "message": "Токен действителен"}
+    return {"valid": True, "message": "Токен действителен","app_token":app_token}
 
 
 @router.get(

@@ -1,39 +1,29 @@
 import requests
-import json
-import time
 
+url = "http://127.0.0.1:8000/api/v1/auth/login/"
+data = {
+    "email": "user@example.com",
+    "password": "string"
+}
 
-url = 'http://*******************/sso/oauth2/access_token'
+# Делаем запрос
+response = requests.post(url, json=data)
 
-url = "http://127.0.0.1:8000/"
-payload = {'client_id': 'rec_elk_m2m', 'client_secret': 'password', 'realm': '/customer',
-           'grant_type': 'urn:roox:params:oauth:grant-type:m2m', 'service': 'dispatcher'}
-headers = {'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'}
+print("--- ЗАГОЛОВКИ ОТВЕТА (СЮДА СЕРВЕР СПРЯТАЛ ТОКЕН) ---")
+# Выводим все заголовки, особенно нас интересует Set-Cookie
+for key, value in response.headers.items():
+    if 'Cookie' in key or 'Auth' in key:
+        print(f"{key}: {value}")
 
-res = requests.post(url, data=payload, headers=headers)
-execution = json.loads(res.content)['execution']
+print("\n--- ИЗВЛЕЧЕННЫЙ ТОКЕН ---")
+# Пытаемся достать токен из куки автоматически
+token = response.cookies.get("user_access_token")
 
-payload = {'client_id': 'rec_elk_m2m',
-           'client_secret': 'password',
-           'realm': '/customer',
-           'grant_type': 'urn:roox:params:oauth:grant-type:m2m',
-           'service': 'dispatcher',
-           '_eventId': 'next',
-           # 'username': 'demo_exporter',
-           # 'username': 'demo_executor',
-           # 'username': 'bpmn_admin',
-           'username': 'mdm_admin',
-           'password': 'password',
-           'execution': execution
-
-           }
-
-headers = {'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'}
-res = requests.post(url, data=payload, headers=headers)
-token_ = 'Bearer sso_1.0_' + json.loads(res.content)['access_token']
-print(token_)
-headers = {'Authorization': token_}
-
-arm_url = 'http://*******************/api/v1/org'
-result = requests.get(arm_url, headers=headers)
-print('result:' + result.content.decode('UTF-8'))
+if token:
+    print(f"✅ ВОТ ОН: {token}")
+    print("\nКак использовать в другом приложении:")
+    print(f"Заголовок: Authorization: Bearer {token}")
+    print(f"ИЛИ Заголовок: Cookie: user_access_token={token}")
+else:
+    print("❌ Токен не найден в куках. Проверьте вывод заголовков выше.")
+    print("Возможно, имя куки отличается (например, access_token).")

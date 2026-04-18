@@ -23,12 +23,12 @@ class User(Base):
     def __table_args__(cls):
         return {"schema": "app_auth"}
 
-    #phone_number: Mapped[str] = mapped_column(unique=True, nullable=False)
+    # phone_number: Mapped[str] = mapped_column(unique=True, nullable=False)
     first_name: Mapped[str]
     last_name: Mapped[str]
     email: Mapped[str] = mapped_column(unique=True, nullable=False)
     password: Mapped[str]
-    # 🔹 ForeignKey ДОЛЖЕН указывать схему явно:
+    # ForeignKey ДОЛЖЕН указывать схему явно:
     role_id: Mapped[int] = mapped_column(
         ForeignKey('app_auth.roles.id'),  # ← 'app_auth.roles', а не просто 'roles'
         default=1,

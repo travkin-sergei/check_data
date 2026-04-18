@@ -36,7 +36,10 @@ async def auth_user(response: Response, user_data: SUserAuth,
     user = await UsersDAO(session).find_one_or_none(filters=EmailModel(email=user_data.email))
     if user and await authenticate_user(user=user, password=user_data.password):
         set_tokens(response, user.id)
-        return {"ok": True, "message": "Авторизация успешна (локальная)"}
+        return {
+            "ok": True,
+            "message": "Авторизация успешна (локальная)"
+        }
 
     # 2. Если локально не найден или пароль не подошёл — пробуем внешний SSO
     if settings.SSO_ENABLED:
@@ -54,7 +57,7 @@ async def auth_user(response: Response, user_data: SUserAuth,
                 hashed = get_password_hash(random_password)
                 new_user = User(
                     email=user_data.email,
-                    #phone_number=sso_user_info.get('phone', '+70000000000'),
+                    # phone_number=sso_user_info.get('phone', '+70000000000'),
                     first_name=sso_user_info.get('first_name', 'SSO'),
                     last_name=sso_user_info.get('last_name', 'User'),
                     password=hashed,
