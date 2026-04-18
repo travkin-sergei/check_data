@@ -236,3 +236,43 @@ async def rotate_app_token(
         "app_token": raw_token,
         "expires_at": cred.expires_at.isoformat()
     }
+
+
+@router.post("/service/app/login/")
+async def app_login(
+    x_app_name: str = Header(..., alias="X-App-Name"),
+    x_app_secret: str = Header(..., alias="X-App-Secret"),
+    session: AsyncSession = Depends(get_session_without_commit)
+):
+    """
+    Аутентификация приложения по client_id/client_secret.
+    Возвращает JWT access_token (срок действия 1 час) и refresh_token.
+    """
+    from src.app_auth.utils import create_app_tokens
+    
+    cred = await AppCredentialDAO(session).find_by_app_name(x_app_name)
+    if not cred or not cred.is_active:
+        logger.warning(f"[AUTH] Приложение '{x_app_name}' не найдено или деактивировано")
+        raise HTTPException(status_code=401, detail="Приложение не зарегистрировано или деактивировано")
+
+    if cred.expires_at and cred.expires_at < datetime.now(timezone.utc):
+        logger.warning(f"[AUTH] Истёк срок действия учётных данных приложения: {x_app_name}")
+        raise HTTPException(status_code=401, detail="Срок действия учётных данных приложения истёк")
+
+    # Проверяем secret (хеш в БД хранится как token_hash, но для app_secret нужен отдельный хеш)
+    # Для совместимости используем verify_password с token_hash как хешом secret
+    if not cred.verify_token(x_app_secret):
+        logger.warning(f"[AUTH] Неверный secret для приложения: {x_app_name}")
+        raise HTTPException(status_code=401, detail="Неверное имя приложения или secret")
+
+    # Генерируем пару токенов
+    tokens = create_app_tokens({"app_name": x_app_name})
+    
+    logger.info(f"[AUTH] Приложение '{x_app_name}' успешно аутентифицировано")
+    
+    return {
+        "access_token": tokens["access_token"],
+        "refresh_token": tokens["refresh_token"],
+        "token_type": "bearer",
+        "expires_in": settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
+    }
