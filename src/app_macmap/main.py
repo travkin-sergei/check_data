@@ -3,9 +3,9 @@
 Запуск приложения для локальной отладки (изолированно)
 """
 from fastapi import FastAPI
-from src.app_systems.config import API_PREFIX_V1, LOG_LEVEL, TAG_NAME, HOST, PORT, RELOAD
+from src.app_file_manager.config import API_PREFIX_V1, LOG_LEVEL, TAG_NAME, HOST, PORT, RELOAD
 from src.config.logger import config_logging
-from src.app_systems.api import router
+from src.app_file_manager.api import router
 
 config_logging(
     level=LOG_LEVEL,

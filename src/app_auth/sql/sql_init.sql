@@ -36,7 +36,7 @@ CREATE TRIGGER trg_roles_updated
 -- 4. Таблица пользователей (соответствует User в models.py)
 CREATE TABLE IF NOT EXISTS app_auth.users (
     id SERIAL PRIMARY KEY,
-    phone_number VARCHAR(20) UNIQUE NOT NULL,
+    --phone_number VARCHAR(20) UNIQUE NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS app_auth.users (
 
 -- Индексы для ускорения поиска
 CREATE INDEX IF NOT EXISTS idx_users_email ON app_auth.users(email);
-CREATE INDEX IF NOT EXISTS idx_users_phone ON app_auth.users(phone_number);
+--CREATE INDEX IF NOT EXISTS idx_users_phone ON app_auth.users(phone_number);
 CREATE INDEX IF NOT EXISTS idx_users_role ON app_auth.users(role_id);
 
 -- Триггер на updated_at
@@ -66,8 +66,8 @@ CREATE TRIGGER trg_users_updated
 -- 5. Инициализация: роль "user" с id=1 (требуется для DEFAULT в users.role_id)
 INSERT INTO app_auth.roles (id, name, description) VALUES
     (1, 'user', 'Обычный пользователь'),
-    (3, 'moderator', 'Модератор'),
-    (4, 'admin', 'Администратор')
+    (2, 'moderator', 'Модератор'),
+    (3, 'admin', 'Администратор')
 ON CONFLICT (id) DO NOTHING;
 
 -- 6. Комменты для документации и ORM

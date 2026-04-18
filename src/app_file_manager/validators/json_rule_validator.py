@@ -1,4 +1,4 @@
-# src/app_systems/validators/json_rule_validator.py
+# src/app_file_manager/validators/json_rule_validator.py
 from typing import Dict, Any, Tuple, Union, Optional
 from pathlib import Path
 

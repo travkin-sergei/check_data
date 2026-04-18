@@ -1,6 +1,6 @@
-# src/app_systems/dependencies.py
+# src/app_file_manager/dependencies.py
 """
-Зависимости авторизации app_systems.
+Зависимости авторизации app_file_manager.
 Строгое переиспользование:
 - src.config.logger (логирование)
 - src.core.api_client (HTTP-клиент с ретраями)
@@ -8,11 +8,11 @@
 """
 
 from typing import Optional
-from src.app_systems.config import APP_TOKEN
+from src.app_file_manager.config import APP_TOKEN
 from fastapi import Header, HTTPException, status
 from src.config.logger import logger
 from src.core.api_client import APIClient, APIClientHTTPError
-from src.app_systems.config import APP_AUTH_URL
+from src.app_file_manager.config import APP_AUTH_URL
 
 
 async def require_app_auth(authorization: str | None = Header(None, alias="Authorization")) -> dict:
@@ -78,7 +78,7 @@ async def verify_app_systems_token(
         )
 
     token = authorization.replace("Bearer ", "").strip()
-    app_name = (x_app_name or "app_systems").strip()
+    app_name = (x_app_name or "app_file_manager").strip()
 
     # 2. Проверка через HTTP-запрос к app_auth (используем переиспользуемый APIClient)
     try:

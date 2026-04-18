@@ -1,12 +1,12 @@
-# tests/app_systems/test_api.py
+# tests/app_file_manager/test_api.py
 """
-Тесты API app_systems с учётом статической авторизации по токену.
+Тесты API app_file_manager с учётом статической авторизации по токену.
 Все защищённые эндпоинты требуют заголовок Authorization: Bearer <token>.
 """
 import os
 import pytest
 from fastapi.testclient import TestClient
-from src.app_systems.config import APP_TOKEN
+from src.app_file_manager.config import APP_TOKEN
 
 # Берём первый валидный токен из конфига. Fallback для CI/сред без .env
 _TEST_TOKEN = APP_TOKEN[0] if APP_TOKEN else "test_token_fallback"
@@ -14,7 +14,7 @@ AUTH_HEADERS = {"Authorization": f"Bearer {_TEST_TOKEN}"}
 
 
 class TestAppSystemsAPI:
-    """Тесты контрактов, валидации и обработки ошибок API app_systems."""
+    """Тесты контрактов, валидации и обработки ошибок API app_file_manager."""
 
     # ==================== GET /available-folders ====================
     def test_folders_success_default_root(self, api_client: TestClient, mock_services: dict):

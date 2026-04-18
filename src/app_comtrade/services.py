@@ -3,7 +3,7 @@ from typing import Dict, Any, Tuple, Union, Optional
 from pathlib import Path
 
 from core.type_unifier import SchemaComparator
-from src.app_systems.validators.json_rule_validator import JsonRuleValidator
+from src.app_file_manager.validators.json_rule_validator import JsonRuleValidator
 from src.config.database import DBManager
 from src.config.logger import logger
 

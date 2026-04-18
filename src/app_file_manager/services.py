@@ -1,6 +1,6 @@
-# src/app_systems/services.py
+# src/app_file_manager/services.py
 """
-Бизнес-логика app_systems.
+Бизнес-логика app_file_manager.
 - Строгое переиспользование: logger, database, type_unifier
 - Изоляция: нет прямых импортов core.*config
 """
@@ -16,7 +16,7 @@ from pathlib import Path
 from functools import lru_cache
 from typing import List, Tuple, Dict, Any, Optional, Set
 
-from src.app_systems.config import DATA_ROOT_DIR
+from src.app_file_manager.config import DATA_ROOT_DIR
 from src.config.database import DBManager
 from src.config.logger import logger
 from src.core.data_checker import DataChecker

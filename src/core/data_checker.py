@@ -16,7 +16,7 @@ from src.config.logger import logger
 class DataChecker:
     """
     Общий сервис для проверки папок и извлечения метаданных.
-    Переиспользуется в app_systems, app_macmap, app_groups и других модулях.
+    Переиспользуется в app_file_manager, app_macmap, app_groups и других модулях.
     """
 
     # === Константы ===

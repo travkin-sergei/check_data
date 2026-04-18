@@ -1,11 +1,11 @@
-# src/app_systems/main.py
+# src/app_file_manager/main.py
 """
 Запуск приложения для локальной отладки (изолированно).
 Не импортирует core.config напрямую — только через ENV/синглтоны.
 """
 from fastapi import FastAPI
 
-from src.app_systems.config import (
+from src.app_file_manager.config import (
     API_PREFIX_V1,
     APP_VERSION,
     LOG_LEVEL,
@@ -15,7 +15,7 @@ from src.app_systems.config import (
     openapi_tags,
 )
 from src.config.logger import config_logging
-from src.app_systems.api import router
+from src.app_file_manager.api import router
 
 
 
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     # При локальной проверке
     print(f'http://127.0.0.1:{PORT}/docs#/')
     uvicorn.run(
-        "src.app_systems.main:app",
+        "src.app_file_manager.main:app",
         host=HOST,
         port=PORT,
         reload=RELOAD,

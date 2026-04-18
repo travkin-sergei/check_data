@@ -1,7 +1,7 @@
-# src/app_systems/config.py
+# src/app_file_manager/config.py
 
 """
-Конфигурация app_systems.
+Конфигурация app_file_manager.
 Изолирована от core: использует ENV-переменные с фоллбэком.
 """
 import os

@@ -8,7 +8,7 @@ from src.config.logger import logger
 env_path = Path(__file__).resolve().parent.parent.parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
-DB_ALIASES = ["base_01", "local_auth", "app_systems", "app_servises"]
+DB_ALIASES = ["base_01", "local_auth", "app_file_manager", "app_servises"]
 
 
 class DBConfig:
@@ -23,7 +23,7 @@ class DBConfig:
             env_map = {
                 "base_01": "DB_LOCAL_01",
                 "local_auth": "DB_LOCAL_AUTH",
-                "app_systems": "APP_SYSTEMS_DB",
+                "app_file_manager": "APP_SYSTEMS_DB",
                 "app_servises": "APP_SERVICES_DB",
             }
             env_key = env_map.get(alias)

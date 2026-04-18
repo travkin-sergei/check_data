@@ -23,7 +23,7 @@ def _collect_app_openapi_tags() -> List[Dict[str, str]]:
 
     # === Список приложений для подключения ===
     apps = [
-        ("app_systems", "src.app_systems.config"),
+        ("app_file_manager", "src.app_file_manager.config"),
         ("app_comtrade", "src.app_comtrade.config"),
         # Добавьте новые приложения сюда: ("app_name", "src.app_name.config"),
     ]
@@ -107,7 +107,7 @@ async def root():
         "documentation": "/docs",
         "health": "/api/v1/system/health",
         "applications": [
-            {"name": "app_systems", "prefix": "/api/v1/systems"},
+            {"name": "app_file_manager", "prefix": "/api/v1/systems"},
             {"name": "app_comtrade", "prefix": "/api/v1/comtrade"},
         ],
     }
@@ -120,14 +120,14 @@ def include_app_routers(app) -> None:
     Подключает изолированные роутеры приложений.
     Каждое приложение импортируется только если существует.
     """
-    # === app_systems ===
+    # === app_file_manager ===
     try:
-        from src.app_systems.api import router as systems_router
-        from src.app_systems.config import API_PREFIX_V1
+        from src.app_file_manager.api import router as systems_router
+        from src.app_file_manager.config import API_PREFIX_V1
         app.include_router(systems_router, prefix=API_PREFIX_V1)
-        logger.info(f"✅ Подключено приложение: app_systems → {API_PREFIX_V1}")
+        logger.info(f"✅ Подключено приложение: app_file_manager → {API_PREFIX_V1}")
     except ImportError as e:
-        logger.debug(f"app_systems не подключён: {e}")
+        logger.debug(f"app_file_manager не подключён: {e}")
 
     # === app_comtrade ===
     try:

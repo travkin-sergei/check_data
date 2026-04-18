@@ -1,4 +1,4 @@
-# src/app_systems/schemas.py
+# src/app_file_manager/schemas.py
 """
 Pydantic схемы для валидации запросов/ответов API.
 Изолированы от ORM-моделей.

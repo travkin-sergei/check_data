@@ -80,7 +80,7 @@ class DBConnection:
     def _get_connection_string(self, db_name: str) -> Optional[str]:
         """Получение строки подключения по имени базы данных."""
         connection_map = {
-            'app_systems': os.getenv('app_systems'),
+            'app_file_manager': os.getenv('app_file_manager'),
         }
         conn_str = connection_map.get(db_name)
 
@@ -224,7 +224,7 @@ class AsyncDBConnection:
             logger.info(f"Async-подключение '{db_name}' инициализировано")
 
     def _get_connection_string(self, db_name: str) -> Optional[str]:
-        connection_map = {'app_comtrade_target': os.getenv('app_systems')}
+        connection_map = {'app_comtrade_target': os.getenv('app_file_manager')}
         conn_str = connection_map.get(db_name)
         # asyncpg понимает postgresql:// нативно
         return conn_str
@@ -343,10 +343,10 @@ class DBManager:
 
 __all__ = ['DBConnection', 'DBManager', 'SecureString', 'AsyncDBConnection']
 
-DATABASE_URL = os.getenv('app_systems')
+DATABASE_URL = os.getenv('app_file_manager')
 
 if not DATABASE_URL:
-    logger.error("app_systems не задан в .env")
+    logger.error("app_file_manager не задан в .env")
     engine = None
     async_session = None
 else:

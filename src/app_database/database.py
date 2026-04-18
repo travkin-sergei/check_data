@@ -49,7 +49,7 @@ class DBConnection:
         mapping = {
             'base_01': os.getenv('DB_LOCAL_01'),
             'local_auth': os.getenv('DB_LOCAL_AUTH'),
-            'app_systems': os.getenv('APP_SYSTEMS_DB'),
+            'app_file_manager': os.getenv('APP_SYSTEMS_DB'),
         }
         conn_str = mapping.get(db_name)
         if conn_str and conn_str.startswith('postgresql://'):
@@ -112,7 +112,7 @@ class AsyncDBConnection:
         mapping = {
             'base_01': os.getenv('DB_LOCAL_01'),
             'local_auth': os.getenv('DB_LOCAL_AUTH'),
-            'app_systems': os.getenv('APP_SYSTEMS_DB'),
+            'app_file_manager': os.getenv('APP_SYSTEMS_DB'),
         }
         conn_str = mapping.get(db_name)
         if conn_str and conn_str.startswith('postgresql://'):
@@ -186,5 +186,5 @@ class DBManager:
     @classmethod
     def get_connection_string(cls, db_name: str) -> Optional[str]:
         mapping = {'base_01': os.getenv('DB_LOCAL_01'), 'local_auth': os.getenv('DB_LOCAL_AUTH'),
-                   'app_systems': os.getenv('APP_SYSTEMS_DB')}
+                   'app_file_manager': os.getenv('APP_SYSTEMS_DB')}
         return mapping.get(db_name)

@@ -1,15 +1,15 @@
-# tests/app_systems/conftest.py
+# tests/app_file_manager/conftest.py
 import pytest
 from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
 
-from src.app_systems.main import app
+from src.app_file_manager.main import app
 
 
 @pytest.fixture(scope="module", autouse=True)
 def isolate_dependencies(tmp_path_factory):
     """
-    Модульная изоляция тестов app_systems:
+    Модульная изоляция тестов app_file_manager:
     - Подменяет DATA_ROOT_DIR на временную директорию
     - Заглушает логирование, чтобы не засорять консоль
     """
@@ -18,8 +18,8 @@ def isolate_dependencies(tmp_path_factory):
 
     # Патчим константу там, где она используется, а не где определена.
     # Это предотвращает конфликты при параллельных импортах.
-    with patch("src.app_systems.services.DATA_ROOT_DIR", data_dir), \
-            patch("src.app_systems.api.DATA_ROOT_DIR", data_dir), \
+    with patch("src.app_file_manager.services.DATA_ROOT_DIR", data_dir), \
+            patch("src.app_file_manager.api.DATA_ROOT_DIR", data_dir), \
             patch("src.config.logger.logger", logger_mock):
         yield data_dir
 
@@ -37,7 +37,7 @@ def api_client():
 
 @pytest.fixture(autouse=True)
 def mock_services():
-    base = "src.app_systems.services.AppDataChecker"
+    base = "src.app_file_manager.services.AppDataChecker"
     with patch(f"{base}.get_available_folders") as m_folders, \
             patch(f"{base}.check_comtrade_data") as m_check, \
             patch(f"{base}.extract_file_schema") as m_extract, \

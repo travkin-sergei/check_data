@@ -1,9 +1,9 @@
-# src/app_systems/api.py
+# src/app_file_manager/api.py
 """
-API приложения app_systems.
+API приложения app_file_manager.
 Простая изолированная авторизация по токену из .env
 Строгое переиспользование: logger, database, services
-Изоляция: импорты только из src.config.* и src.app_systems.*
+Изоляция: импорты только из src.config.* и src.app_file_manager.*
 """
 import mimetypes
 
@@ -17,10 +17,10 @@ from starlette.background import BackgroundTask
 
 from src.config.database import DBManager
 from src.config.logger import logger
-from src.app_systems.config import TAG_NAME, DATA_ROOT_DIR
-from src.app_systems.dependencies import require_app_auth
-from src.app_systems.services import AppDataChecker
-from src.app_systems.schemas import (
+from src.app_file_manager.config import TAG_NAME, DATA_ROOT_DIR
+from src.app_file_manager.dependencies import require_app_auth
+from src.app_file_manager.services import AppDataChecker
+from src.app_file_manager.schemas import (
     CheckDataResponse, CheckDataRequest,
     FoldersResponse, FileExistsResponse,
     ExtractSchemaResponse, ExtractSchemaRequest,

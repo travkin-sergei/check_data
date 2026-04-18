@@ -40,7 +40,7 @@ graph LR
 
 ## app_systems
 ```bash
-    pytest tests/app_systems/test_api.py -v
+    pytest tests/app_file_manager/test_api.py -v
 ```
 
 ## Установка

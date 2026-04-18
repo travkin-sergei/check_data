@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, Dict, Any
 
 class BaseSchema(BaseModel):
-    """Базовая схема с настройками (строгое переиспользование паттерна app_systems)."""
+    """Базовая схема с настройками (строгое переиспользование паттерна app_file_manager)."""
     model_config = ConfigDict(
         from_attributes=True,
         extra='ignore',
