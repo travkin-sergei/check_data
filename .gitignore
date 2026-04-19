@@ -1,1 +1,71 @@
-(src/app_file_manager/main.py)
+```gitignore
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.class
+*.out
+*.a
+
+# Dependencies
+.venv/
+venv/
+node_modules/
+pip-log.txt
+pipenv.lock
+requirements.txt.bak
+.tox/
+.coverage
+htmlcov/
+.mypy_cache/
+.pytest_cache/
+.nyc_output/
+coverage/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+*.~*
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*
+!.env.example
+
+# Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# Build directories
+dist/
+build/
+target/
+*.egg-info/
+.tox/
+.pytest_cache/
+.hypothesis/
+.eggs/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+```

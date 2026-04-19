@@ -33,6 +33,14 @@ app = FastAPI(
     version=APP_VERSION,
     openapi_tags=[openapi_tags],
     swagger_ui_parameters={"docExpansion": "none"},
+    openapi_security_schemes={
+        "HTTPBearer": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+        }
+    },
+    security=[{"HTTPBearer": []}]
 )
 
 app.include_router(router, prefix=API_PREFIX_V1, dependencies=[Depends(security)])
