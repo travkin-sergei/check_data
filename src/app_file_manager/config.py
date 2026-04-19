@@ -14,7 +14,7 @@ load_dotenv(dotenv_path=env_path)
 DATA_ROOT_DIR = Path(os.getenv("APP_SYSTEMS_DATA_ROOT", '.')).resolve()
 
 APP_NAME = 'systems'
-TAG_NAME = 'APP Systems'
+TAG_NAME = 'APP file manager'
 APP_VERSION = '1.0.0'
 APP_AUTHOR = 'travkin'
 APP_TOKEN = os.getenv("APP_SYSTEMS_TOKEN", "111,222").split(',')
