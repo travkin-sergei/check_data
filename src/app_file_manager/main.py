@@ -3,7 +3,8 @@
 Запуск приложения для локальной отладки (изолированно).
 Не импортирует core.config напрямую — только через ENV/синглтоны.
 """
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+from fastapi.security import HTTPBearer
 
 from src.app_file_manager.config import (
     API_PREFIX_V1,
@@ -18,12 +19,13 @@ from src.config.logger import config_logging
 from src.app_file_manager.api import router
 
 
-
 # Настройка логирования
 config_logging(
     level=LOG_LEVEL,
     log_base_path="src"
 )
+
+security = HTTPBearer()
 
 app = FastAPI(
     title=openapi_tags.get('name'),
@@ -31,16 +33,9 @@ app = FastAPI(
     version=APP_VERSION,
     openapi_tags=[openapi_tags],
     swagger_ui_parameters={"docExpansion": "none"},
-    security_schemes={
-        "bearerAuth": {
-            "type": "http",
-            "scheme": "bearer",
-            "bearerFormat": "Token"
-        }
-    }
 )
 
-app.include_router(router, prefix=API_PREFIX_V1)
+app.include_router(router, prefix=API_PREFIX_V1, dependencies=[Depends(security)])
 
 if __name__ == "__main__":
     import uvicorn
