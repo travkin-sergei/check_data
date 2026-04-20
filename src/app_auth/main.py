@@ -1,7 +1,8 @@
 # src/app_auth/main.py
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+from fastapi.security import HTTPBearer
 from src.config.logger import config_logging
 from src.app_auth.config import settings, openapi_tags
 from src.app_auth.api import router
@@ -20,16 +21,26 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     await DBManager().close_all()
 
 
+security = HTTPBearer()
+
 app = FastAPI(
     title=openapi_tags["name"],
     description=openapi_tags["description"],
     version=settings.APP_VERSION,
     openapi_tags=[openapi_tags],
     lifespan=lifespan,
-    swagger_ui_parameters={"docExpansion": "none"}
+    swagger_ui_parameters={"docExpansion": "none"},
+    openapi_security_schemes={
+        "HTTPBearer": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+        }
+    },
+    security=[{"HTTPBearer": []}]
 )
 
-app.include_router(router, prefix=settings.API_PREFIX_V1)
+app.include_router(router, prefix=settings.API_PREFIX_V1, dependencies=[Depends(security)])
 
 if __name__ == "__main__":
     import uvicorn
